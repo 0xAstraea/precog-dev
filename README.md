@@ -63,3 +63,4 @@ This repository contains all smart contracts for the Precog forecasting protocol
 This project used the Scaffold-ETH-2 project as template. 
 Visit the [Docs](https://docs.scaffoldeth.io) to find useful scripts and guides:
 - ️ Built using NextJS, RainbowKit, Hardhat, Wagmi and Viem.
+
