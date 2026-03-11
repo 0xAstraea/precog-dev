@@ -6,6 +6,454 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 const deployedContracts = {
   8453: {
+    MateToken: {
+      address: "0xC139C86de76DF41c041A30853C3958427fA7CEbD",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "Owner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Approval",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Transfer",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+          ],
+          name: "allowance",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "approve",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "balanceOf",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "burn",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "burn",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "burnFrom",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "decimals",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "subtractedValue",
+              type: "uint256",
+            },
+          ],
+          name: "decreaseAllowance",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "addedValue",
+              type: "uint256",
+            },
+          ],
+          name: "increaseAllowance",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "mint",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "move",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "name",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "symbol",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalSupply",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "recipient",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "recipient",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "transferFrom",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        allowance: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        approve: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        balanceOf: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        decimals: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        decreaseAllowance:
+          "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        increaseAllowance:
+          "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        name: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        symbol: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        totalSupply: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        transfer: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        transferFrom: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        burn: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        burnFrom: "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol",
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+      },
+    },
     PrecogMarketV7: {
       address: "0xAac4F52016bc3A97D0d841A90f51fA1d7C2BB52b",
       abi: [
@@ -683,6 +1131,912 @@ const deployedContracts = {
           ],
           name: "withdraw",
           outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    PrecogMarketV8: {
+      address: "0x44769bE6853918e939281b2f669f9a58608Cb55B",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "updater",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint64",
+              name: "newStartTimestamp",
+              type: "uint64",
+            },
+            {
+              indexed: false,
+              internalType: "uint64",
+              name: "newEndTimestamp",
+              type: "uint64",
+            },
+          ],
+          name: "DatesUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "oracle",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "closeTimestamp",
+              type: "uint256",
+            },
+          ],
+          name: "ResultReported",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenIn",
+              type: "uint256",
+            },
+          ],
+          name: "SharesBought",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenOut",
+              type: "uint256",
+            },
+          ],
+          name: "SharesRedeemed",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenOut",
+              type: "uint256",
+            },
+          ],
+          name: "SharesSold",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "ONE_SHARE",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "_maxCost",
+              type: "uint256",
+            },
+          ],
+          name: "buy",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenCost",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_buyer",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_payer",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+          ],
+          name: "buyFor",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenCost",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+          ],
+          name: "buyPrice",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "tokenCost",
+              type: "int128",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "closeTimestamp",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "datesUpdateEnabled",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+          ],
+          name: "enableDatesUpdate",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "endTimestamp",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+          ],
+          name: "getAccountOutcomeBalances",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "balances",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+          ],
+          name: "getAccountStats",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "buys",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "sells",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deposited",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "withdrawn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "redeemed",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getMarketInfo",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "int128[]",
+              name: "",
+              type: "int128[]",
+            },
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getMarketSetupInfo",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getPrices",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "buyPrices",
+              type: "uint256[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "sellPrices",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getWithdrawableCollateral",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "id",
+          outputs: [
+            {
+              internalType: "uint32",
+              name: "",
+              type: "uint32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_token",
+              type: "address",
+            },
+          ],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "oracle",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address[]",
+              name: "_accounts",
+              type: "address[]",
+            },
+          ],
+          name: "redeemBatch",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "redeems",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+          ],
+          name: "redeemFor",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "redeemedShares",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "redeemShares",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "redeemedShares",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+          ],
+          name: "reportResult",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "result",
+          outputs: [
+            {
+              internalType: "uint16",
+              name: "",
+              type: "uint16",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "_minReturn",
+              type: "uint256",
+            },
+          ],
+          name: "sell",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenReturn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_seller",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_receiver",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+          ],
+          name: "sellFor",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenReturn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+          ],
+          name: "sellPrice",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "tokenReturn",
+              type: "int128",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_oracle",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcomes",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_liquidity",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_overround",
+              type: "uint256",
+            },
+          ],
+          name: "setup",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_oracle",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcomes",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_liquidity",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_overround",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_funding",
+              type: "uint256",
+            },
+          ],
+          name: "setupVL",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "startTimestamp",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "token",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalOutcomes",
+          outputs: [
+            {
+              internalType: "uint16",
+              name: "",
+              type: "uint16",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_newStartTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_newEndTimestamp",
+              type: "uint256",
+            },
+          ],
+          name: "updateDates",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_newOracle",
+              type: "address",
+            },
+          ],
+          name: "updateOracle",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_newSellFeeFactor",
+              type: "uint256",
+            },
+          ],
+          name: "updateSellFeeFactor",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_token",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_to",
+              type: "address",
+            },
+          ],
+          name: "withdrawAvailableCollateral",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
           stateMutability: "nonpayable",
           type: "function",
         },
@@ -2151,6 +3505,1866 @@ const deployedContracts = {
           ],
           name: "withdraw",
           outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        DEFAULT_ADMIN_ROLE: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleAdmin: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleMember: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleMemberCount: "@openzeppelin/contracts/access/AccessControl.sol",
+        grantRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        hasRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        renounceRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        revokeRole: "@openzeppelin/contracts/access/AccessControl.sol",
+      },
+    },
+    PrecogMasterV8: {
+      address: "0x00000000000c109080dfa976923384b97165a57a",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialAdmin",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "creator",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "market",
+              type: "address",
+            },
+          ],
+          name: "MarketCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "previousAdminRole",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "newAdminRole",
+              type: "bytes32",
+            },
+          ],
+          name: "RoleAdminChanged",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleGranted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleRevoked",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "CALLER_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "DEFAULT_ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "MARKET_OPERATOR_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "PERMIT2",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "addAllowedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "oracle",
+              type: "address",
+            },
+          ],
+          name: "addAllowedOracle",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "addAllowedReceiver",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addCaller",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addMarketOperator",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "addOwnedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "allowedCollaterals",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "allowedOracles",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "allowedReceivers",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nonce",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "sig",
+              type: "bytes",
+            },
+          ],
+          name: "buyMarketSharesFor",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "payer",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nonce",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "sig",
+              type: "bytes",
+            },
+          ],
+          name: "buyMarketSharesForWithPayer",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "question",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "resolutionCriteria",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "imageURL",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "category",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "outcomes",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "creator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "operator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "market",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateral",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketData",
+              name: "data",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "oracle",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "totalOutcomes",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "liquidity",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "overround",
+                  type: "uint256",
+                },
+                {
+                  internalType: "int256",
+                  name: "sellFeeFactor",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "collateralFunding",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateralFunder",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketConfig",
+              name: "config",
+              type: "tuple",
+            },
+          ],
+          name: "createCustomMarket",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "newMarketId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "question",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "resolutionCriteria",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "imageURL",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "category",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "outcomes",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "creator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "operator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "market",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateral",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketData",
+              name: "data",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "oracle",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "totalOutcomes",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "liquidity",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "overround",
+                  type: "uint256",
+                },
+                {
+                  internalType: "int256",
+                  name: "sellFeeFactor",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "collateralFunding",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateralFunder",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketConfig",
+              name: "config",
+              type: "tuple",
+            },
+          ],
+          name: "createMarket",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "newMarketId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "createdMarkets",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getMarketsConfigs",
+          outputs: [
+            {
+              internalType: "address",
+              name: "implementation",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "minOverround",
+              type: "uint256",
+            },
+            {
+              internalType: "int256",
+              name: "minSellFeeFactor",
+              type: "int256",
+            },
+            {
+              internalType: "uint256",
+              name: "feeFactor",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleAdmin",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "getRoleMember",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleMemberCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "grantRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "hasRole",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "marketAccountInfo",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "buys",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "sells",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deposited",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "withdrawn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "redeemed",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256[]",
+              name: "balances",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+          ],
+          name: "marketBuy",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+          ],
+          name: "marketBuyPrice",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "tokenCost",
+              type: "int128",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "uint8",
+              name: "v",
+              type: "uint8",
+            },
+            {
+              internalType: "bytes32",
+              name: "r",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes32",
+              name: "s",
+              type: "bytes32",
+            },
+          ],
+          name: "marketBuyWithPermit",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nonce",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "sig",
+              type: "bytes",
+            },
+          ],
+          name: "marketBuyWithPermit2",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketCollateralInfo",
+          outputs: [
+            {
+              internalType: "address",
+              name: "token",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "symbol",
+              type: "string",
+            },
+            {
+              internalType: "uint8",
+              name: "decimals",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketPrices",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "buyPrices",
+              type: "uint256[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "sellPrices",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketRedeemShares",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "shares",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketResultInfo",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "closed",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "reporter",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "minAmountOut",
+              type: "uint256",
+            },
+          ],
+          name: "marketSell",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountOut",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+          ],
+          name: "marketSellPrice",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "tokenReturn",
+              type: "int128",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketSetupInfo",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "initialShares",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
+              name: "alpha",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "outcomes",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sellFeeFactor",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "initialCollateral",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketSharesInfo",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "totalShares",
+              type: "int128",
+            },
+            {
+              internalType: "int128[]",
+              name: "sharesBalances",
+              type: "int128[]",
+            },
+            {
+              internalType: "int128",
+              name: "redeemed",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
+              name: "cost",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "buys",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "sells",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "marketTransferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "marketToken",
+              type: "address",
+            },
+          ],
+          name: "marketWithdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "markets",
+          outputs: [
+            {
+              internalType: "string",
+              name: "question",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "resolutionCriteria",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "imageURL",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "category",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "outcomes",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "creator",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "market",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "startTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "endTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "ownedCollaterals",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+          ],
+          name: "ownedMarketBuy",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "ownedTokenBurn",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "ownedTokenMint",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "ownedTokenMove",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "newPrecogMaster",
+              type: "address",
+            },
+          ],
+          name: "ownedTokenTransferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "removeAllowedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "oracle",
+              type: "address",
+            },
+          ],
+          name: "removeAllowedOracle",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "removeAllowedReceiver",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeCaller",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeMarketOperator",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "removeOwnedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "renounceRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "revokeRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "market",
+              type: "address",
+            },
+          ],
+          name: "setBaseMarket",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "overround",
+              type: "uint256",
+            },
+          ],
+          name: "setMarketMinOverround",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "int256",
+              name: "sellFeeFactor",
+              type: "int256",
+            },
+          ],
+          name: "setMarketMinSellFeeFactor",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "feeFactor",
+              type: "uint256",
+            },
+          ],
+          name: "setProtocolFeeFactor",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "question",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "resolutionCriteria",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "imageURL",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "category",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "outcomes",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "marketCreator",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "startTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "endTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "marketOracle",
+              type: "address",
+            },
+            {
+              internalType: "int256",
+              name: "sellFeeFactor",
+              type: "int256",
+            },
+          ],
+          name: "updateMarket",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_token",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "withdrawMarketCollateral",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "withdrawMarketCollateralTo",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
           stateMutability: "nonpayable",
           type: "function",
         },
@@ -3698,9 +6912,34 @@ const deployedContracts = {
     },
   },
   31337: {
-    PrecogMarketV7: {
-      address: "0xAac4F52016bc3A97D0d841A90f51fA1d7C2BB52b",
+    PrecogMarketV8: {
+      address: "0x44769bE6853918e939281b2f669f9a58608Cb55B",
       abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "updater",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint64",
+              name: "newStartTimestamp",
+              type: "uint64",
+            },
+            {
+              indexed: false,
+              internalType: "uint64",
+              name: "newEndTimestamp",
+              type: "uint64",
+            },
+          ],
+          name: "DatesUpdated",
+          type: "event",
+        },
         {
           anonymous: false,
           inputs: [
@@ -3718,6 +6957,31 @@ const deployedContracts = {
             },
           ],
           name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "oracle",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "closeTimestamp",
+              type: "uint256",
+            },
+          ],
+          name: "ResultReported",
           type: "event",
         },
         {
@@ -3814,116 +7078,13 @@ const deployedContracts = {
           type: "event",
         },
         {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_outcome",
-              type: "uint256",
-            },
+          inputs: [],
+          name: "ONE_SHARE",
+          outputs: [
             {
               internalType: "int128",
-              name: "_amount",
-              type: "int128",
-            },
-            {
-              internalType: "address",
-              name: "_account",
-              type: "address",
-            },
-          ],
-          name: "_buy",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "tokenCost",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_account",
-              type: "address",
-            },
-          ],
-          name: "_redeem",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "redeemedShares",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "_outcome",
-              type: "uint256",
-            },
-            {
-              internalType: "int128",
-              name: "_amount",
-              type: "int128",
-            },
-            {
-              internalType: "address",
-              name: "_account",
-              type: "address",
-            },
-          ],
-          name: "_sell",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "tokenReturn",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
               name: "",
-              type: "address",
-            },
-          ],
-          name: "accountShares",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "buys",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "sells",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "deposited",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "withdrew",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "redeemed",
-              type: "uint256",
+              type: "int128",
             },
           ],
           stateMutability: "view",
@@ -3941,8 +7102,47 @@ const deployedContracts = {
               name: "_amount",
               type: "int128",
             },
+            {
+              internalType: "uint256",
+              name: "_maxCost",
+              type: "uint256",
+            },
           ],
           name: "buy",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenCost",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_buyer",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_payer",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+          ],
+          name: "buyFor",
           outputs: [
             {
               internalType: "uint256",
@@ -3982,9 +7182,9 @@ const deployedContracts = {
           name: "closeTimestamp",
           outputs: [
             {
-              internalType: "uint256",
+              internalType: "uint64",
               name: "",
-              type: "uint256",
+              type: "uint64",
             },
           ],
           stateMutability: "view",
@@ -3992,15 +7192,28 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "cost",
+          name: "datesUpdateEnabled",
           outputs: [
             {
-              internalType: "int128",
-              name: "totalCost",
-              type: "int128",
+              internalType: "bool",
+              name: "",
+              type: "bool",
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+          ],
+          name: "enableDatesUpdate",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -4008,9 +7221,9 @@ const deployedContracts = {
           name: "endTimestamp",
           outputs: [
             {
-              internalType: "uint256",
+              internalType: "uint64",
               name: "",
-              type: "uint256",
+              type: "uint64",
             },
           ],
           stateMutability: "view",
@@ -4036,6 +7249,45 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+          ],
+          name: "getAccountStats",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "buys",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "sells",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deposited",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "withdrawn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "redeemed",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "getMarketInfo",
           outputs: [
@@ -4055,9 +7307,47 @@ const deployedContracts = {
               type: "int128",
             },
             {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
               internalType: "uint256",
               name: "",
               type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getMarketSetupInfo",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
             },
             {
               internalType: "uint256",
@@ -4088,12 +7378,25 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "id",
+          name: "getWithdrawableCollateral",
           outputs: [
             {
               internalType: "uint256",
               name: "",
               type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "id",
+          outputs: [
+            {
+              internalType: "uint32",
+              name: "",
+              type: "uint32",
             },
           ],
           stateMutability: "view",
@@ -4158,6 +7461,25 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+          ],
+          name: "redeemFor",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "redeemedShares",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "redeemShares",
           outputs: [
@@ -4193,9 +7515,9 @@ const deployedContracts = {
           name: "result",
           outputs: [
             {
-              internalType: "uint256",
+              internalType: "uint16",
               name: "",
-              type: "uint256",
+              type: "uint16",
             },
           ],
           stateMutability: "view",
@@ -4213,8 +7535,47 @@ const deployedContracts = {
               name: "_amount",
               type: "int128",
             },
+            {
+              internalType: "uint256",
+              name: "_minReturn",
+              type: "uint256",
+            },
           ],
           name: "sell",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenReturn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_seller",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_receiver",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+          ],
+          name: "sellFor",
           outputs: [
             {
               internalType: "uint256",
@@ -4263,12 +7624,12 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "_totalOutcomes",
+              name: "_outcomes",
               type: "uint256",
             },
             {
               internalType: "uint256",
-              name: "_subsidy",
+              name: "_liquidity",
               type: "uint256",
             },
             {
@@ -4283,13 +7644,51 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_oracle",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcomes",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_liquidity",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_overround",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_funding",
+              type: "uint256",
+            },
+          ],
+          name: "setupVL",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "startTimestamp",
           outputs: [
             {
-              internalType: "uint256",
+              internalType: "uint64",
               name: "",
-              type: "uint256",
+              type: "uint64",
             },
           ],
           stateMutability: "view",
@@ -4313,9 +7712,9 @@ const deployedContracts = {
           name: "totalOutcomes",
           outputs: [
             {
-              internalType: "uint256",
+              internalType: "uint16",
               name: "",
-              type: "uint256",
+              type: "uint16",
             },
           ],
           stateMutability: "view",
@@ -4338,12 +7737,12 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "uint256",
-              name: "_startTimestamp",
+              name: "_newStartTimestamp",
               type: "uint256",
             },
             {
               internalType: "uint256",
-              name: "_endTimestamp",
+              name: "_newEndTimestamp",
               type: "uint256",
             },
           ],
@@ -4368,29 +7767,62 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "uint256",
+              name: "_newSellFeeFactor",
+              type: "uint256",
+            },
+          ],
+          name: "updateSellFeeFactor",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "address",
               name: "_token",
               type: "address",
             },
           ],
           name: "withdraw",
-          outputs: [],
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_to",
+              type: "address",
+            },
+          ],
+          name: "withdrawAvailableCollateral",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
           stateMutability: "nonpayable",
           type: "function",
         },
       ],
       inheritedFunctions: {},
     },
-    PrecogMasterV7: {
-      address: "0x1eB90323aE74E5FBc3241c1D074cFd0b117d7e8E",
+    PrecogMasterV8: {
+      address: "0x00000000000c109080dfa976923384b97165a57a",
       abi: [
         {
           inputs: [
-            {
-              internalType: "address",
-              name: "precogToken",
-              type: "address",
-            },
             {
               internalType: "address",
               name: "initialAdmin",
@@ -4407,6 +7839,12 @@ const deployedContracts = {
               indexed: true,
               internalType: "address",
               name: "creator",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "operator",
               type: "address",
             },
             {
@@ -4501,62 +7939,6 @@ const deployedContracts = {
           type: "event",
         },
         {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "uint256",
-              name: "user",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "timestamp",
-              type: "uint256",
-            },
-          ],
-          name: "TokensClaimed",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "timestamp",
-              type: "uint256",
-            },
-          ],
-          name: "TokensMinted",
-          type: "event",
-        },
-        {
           inputs: [],
           name: "ADMIN_ROLE",
           outputs: [
@@ -4597,7 +7979,7 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "MARKET_CREATOR_ROLE",
+          name: "MARKET_OPERATOR_ROLE",
           outputs: [
             {
               internalType: "bytes32",
@@ -4609,34 +7991,13 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [
+          inputs: [],
+          name: "PERMIT2",
+          outputs: [
             {
               internalType: "address",
               name: "",
               type: "address",
-            },
-          ],
-          name: "accountTokenClaims",
-          outputs: [
-            {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "user",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "claimedAmount",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "claimedTimestamp",
-              type: "uint256",
             },
           ],
           stateMutability: "view",
@@ -4651,6 +8012,45 @@ const deployedContracts = {
             },
           ],
           name: "addAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "addAllowedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "oracle",
+              type: "address",
+            },
+          ],
+          name: "addAllowedOracle",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "addAllowedReceiver",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -4676,9 +8076,79 @@ const deployedContracts = {
               type: "address",
             },
           ],
-          name: "addMarketCreator",
+          name: "addMarketOperator",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "addOwnedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "allowedCollaterals",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "allowedOracles",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "allowedReceivers",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {
@@ -4690,21 +8160,46 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "user",
+              name: "marketId",
               type: "uint256",
             },
             {
               internalType: "uint256",
-              name: "amount",
+              name: "outcome",
               type: "uint256",
             },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nonce",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "sig",
+              type: "bytes",
+            },
           ],
-          name: "claimToken",
+          name: "buyMarketSharesFor",
           outputs: [
             {
-              internalType: "bool",
-              name: "",
-              type: "bool",
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
             },
           ],
           stateMutability: "nonpayable",
@@ -4713,64 +8208,167 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "string",
-              name: "name",
-              type: "string",
-            },
-            {
-              internalType: "string",
-              name: "description",
-              type: "string",
-            },
-            {
-              internalType: "string",
-              name: "category",
-              type: "string",
-            },
-            {
-              internalType: "string[]",
-              name: "outcomes",
-              type: "string[]",
-            },
-            {
-              internalType: "uint256",
-              name: "startTimestamp",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "endTimestamp",
-              type: "uint256",
-            },
-            {
               internalType: "address",
-              name: "creator",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "funding",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "overround",
-              type: "uint256",
-            },
-            {
-              internalType: "address",
-              name: "collateralToken",
+              name: "account",
               type: "address",
             },
             {
               internalType: "address",
-              name: "collateralFunder",
+              name: "payer",
               type: "address",
             },
             {
-              internalType: "address",
-              name: "marketOracle",
-              type: "address",
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nonce",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "sig",
+              type: "bytes",
+            },
+          ],
+          name: "buyMarketSharesForWithPayer",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "question",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "resolutionCriteria",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "imageURL",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "category",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "outcomes",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "creator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "operator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "market",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateral",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketData",
+              name: "data",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "oracle",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "totalOutcomes",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "liquidity",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "overround",
+                  type: "uint256",
+                },
+                {
+                  internalType: "int256",
+                  name: "sellFeeFactor",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "collateralFunding",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateralFunder",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketConfig",
+              name: "config",
+              type: "tuple",
             },
           ],
           name: "createCustomMarket",
@@ -4787,49 +8385,108 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "string",
-              name: "name",
-              type: "string",
+              components: [
+                {
+                  internalType: "string",
+                  name: "question",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "resolutionCriteria",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "imageURL",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "category",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "outcomes",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "creator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "operator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "market",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateral",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketData",
+              name: "data",
+              type: "tuple",
             },
             {
-              internalType: "string",
-              name: "description",
-              type: "string",
-            },
-            {
-              internalType: "string",
-              name: "category",
-              type: "string",
-            },
-            {
-              internalType: "string[]",
-              name: "outcomes",
-              type: "string[]",
-            },
-            {
-              internalType: "uint256",
-              name: "startTimestamp",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "endTimestamp",
-              type: "uint256",
-            },
-            {
-              internalType: "address",
-              name: "creator",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "funding",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "overround",
-              type: "uint256",
+              components: [
+                {
+                  internalType: "address",
+                  name: "oracle",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "totalOutcomes",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "liquidity",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "overround",
+                  type: "uint256",
+                },
+                {
+                  internalType: "int256",
+                  name: "sellFeeFactor",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "collateralFunding",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateralFunder",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketConfig",
+              name: "config",
+              type: "tuple",
             },
           ],
           name: "createMarket",
@@ -4858,11 +8515,26 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "currentSeason",
+          name: "getMarketsConfigs",
           outputs: [
             {
+              internalType: "address",
+              name: "implementation",
+              type: "address",
+            },
+            {
               internalType: "uint256",
-              name: "",
+              name: "minOverround",
+              type: "uint256",
+            },
+            {
+              internalType: "int256",
+              name: "minSellFeeFactor",
+              type: "int256",
+            },
+            {
+              internalType: "uint256",
+              name: "feeFactor",
               type: "uint256",
             },
           ],
@@ -4952,54 +8624,6 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "user",
-              type: "uint256",
-            },
-          ],
-          name: "hasClaimed",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "marketId",
-              type: "uint256",
-            },
-            {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-          ],
-          name: "hasRedeemedShares",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
               internalType: "bytes32",
               name: "role",
               type: "bytes32",
@@ -5028,32 +8652,13 @@ const deployedContracts = {
               name: "marketId",
               type: "uint256",
             },
-          ],
-          name: "isClosedMarket",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "marketId",
-              type: "uint256",
-            },
             {
               internalType: "address",
               name: "account",
               type: "address",
             },
           ],
-          name: "marketAccountShares",
+          name: "marketAccountInfo",
           outputs: [
             {
               internalType: "uint256",
@@ -5072,7 +8677,7 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "withdrew",
+              name: "withdrawn",
               type: "uint256",
             },
             {
@@ -5159,12 +8764,115 @@ const deployedContracts = {
               name: "marketId",
               type: "uint256",
             },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "uint8",
+              name: "v",
+              type: "uint8",
+            },
+            {
+              internalType: "bytes32",
+              name: "r",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes32",
+              name: "s",
+              type: "bytes32",
+            },
+          ],
+          name: "marketBuyWithPermit",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nonce",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "sig",
+              type: "bytes",
+            },
+          ],
+          name: "marketBuyWithPermit2",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
           ],
           name: "marketCollateralInfo",
           outputs: [
             {
               internalType: "address",
-              name: "collateral",
+              name: "token",
               type: "address",
             },
             {
@@ -5329,6 +9037,45 @@ const deployedContracts = {
               type: "uint256",
             },
           ],
+          name: "marketSetupInfo",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "initialShares",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
+              name: "alpha",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "outcomes",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sellFeeFactor",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "initialCollateral",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
           name: "marketSharesInfo",
           outputs: [
             {
@@ -5343,17 +9090,22 @@ const deployedContracts = {
             },
             {
               internalType: "int128",
+              name: "redeemed",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
               name: "cost",
               type: "int128",
             },
             {
               internalType: "uint256",
-              name: "totalBuys",
+              name: "buys",
               type: "uint256",
             },
             {
               internalType: "uint256",
-              name: "totalSells",
+              name: "sells",
               type: "uint256",
             },
           ],
@@ -5408,12 +9160,17 @@ const deployedContracts = {
           outputs: [
             {
               internalType: "string",
-              name: "name",
+              name: "question",
               type: "string",
             },
             {
               internalType: "string",
-              name: "description",
+              name: "resolutionCriteria",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "imageURL",
               type: "string",
             },
             {
@@ -5427,18 +9184,13 @@ const deployedContracts = {
               type: "string",
             },
             {
-              internalType: "uint256",
-              name: "startTimestamp",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "endTimestamp",
-              type: "uint256",
+              internalType: "address",
+              name: "creator",
+              type: "address",
             },
             {
               internalType: "address",
-              name: "creator",
+              name: "operator",
               type: "address",
             },
             {
@@ -5446,20 +9198,6 @@ const deployedContracts = {
               name: "market",
               type: "address",
             },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          name: "miningSeasons",
-          outputs: [
             {
               internalType: "uint256",
               name: "startTimestamp",
@@ -5471,29 +9209,9 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "uint256",
-              name: "maxUserClaim",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxTotalClaim",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxTotalMint",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "claimedAmount",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "mintedAmount",
-              type: "uint256",
+              internalType: "address",
+              name: "collateral",
+              type: "address",
             },
           ],
           stateMutability: "view",
@@ -5501,6 +9219,64 @@ const deployedContracts = {
         },
         {
           inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "ownedCollaterals",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+          ],
+          name: "ownedMarketBuy",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
             {
               internalType: "address",
               name: "from",
@@ -5512,13 +9288,18 @@ const deployedContracts = {
               type: "uint256",
             },
           ],
-          name: "precogBurn",
+          name: "ownedTokenBurn",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
         },
         {
           inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
             {
               internalType: "address",
               name: "to",
@@ -5530,7 +9311,7 @@ const deployedContracts = {
               type: "uint256",
             },
           ],
-          name: "precogMint",
+          name: "ownedTokenMint",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -5539,11 +9320,44 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "ownedTokenMove",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
+            {
+              internalType: "address",
               name: "newPrecogMaster",
               type: "address",
             },
           ],
-          name: "precogTransferOwnership",
+          name: "ownedTokenTransferOwnership",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -5557,6 +9371,45 @@ const deployedContracts = {
             },
           ],
           name: "removeAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "removeAllowedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "oracle",
+              type: "address",
+            },
+          ],
+          name: "removeAllowedOracle",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "removeAllowedReceiver",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -5582,7 +9435,20 @@ const deployedContracts = {
               type: "address",
             },
           ],
-          name: "removeMarketCreator",
+          name: "removeMarketOperator",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "removeOwnedCollateral",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -5627,7 +9493,7 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "address",
-              name: "_market",
+              name: "market",
               type: "address",
             },
           ],
@@ -5639,12 +9505,25 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "address",
-              name: "_oracle",
-              type: "address",
+              internalType: "uint256",
+              name: "overround",
+              type: "uint256",
             },
           ],
-          name: "setBaseOracle",
+          name: "setMarketMinOverround",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "int256",
+              name: "sellFeeFactor",
+              type: "int256",
+            },
+          ],
+          name: "setMarketMinSellFeeFactor",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -5653,72 +9532,11 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "uint256",
-              name: "seasonIndex",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "startTimestamp",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "endTimestamp",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxUserClaim",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxTotalClaim",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxTotalMint",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "claimedAmount",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "mintedAmount",
+              name: "feeFactor",
               type: "uint256",
             },
           ],
-          name: "setMiningSeason",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "token",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "seasonIndex",
-              type: "uint256",
-            },
-          ],
-          name: "updateCurrentSeason",
+          name: "setProtocolFeeFactor",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -5732,12 +9550,17 @@ const deployedContracts = {
             },
             {
               internalType: "string",
-              name: "name",
+              name: "question",
               type: "string",
             },
             {
               internalType: "string",
-              name: "description",
+              name: "resolutionCriteria",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "imageURL",
               type: "string",
             },
             {
@@ -5746,9 +9569,14 @@ const deployedContracts = {
               type: "string",
             },
             {
-              internalType: "string[]",
+              internalType: "string",
               name: "outcomes",
-              type: "string[]",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "marketCreator",
+              type: "address",
             },
             {
               internalType: "uint256",
@@ -5762,13 +9590,13 @@ const deployedContracts = {
             },
             {
               internalType: "address",
-              name: "marketCreator",
+              name: "marketOracle",
               type: "address",
             },
             {
-              internalType: "address",
-              name: "marketOracle",
-              type: "address",
+              internalType: "int256",
+              name: "sellFeeFactor",
+              type: "int256",
             },
           ],
           name: "updateMarket",
@@ -5780,22 +9608,18 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "address",
-              name: "account",
+              name: "_token",
               type: "address",
             },
+          ],
+          name: "withdraw",
+          outputs: [
             {
               internalType: "uint256",
               name: "amount",
               type: "uint256",
             },
-            {
-              internalType: "uint256",
-              name: "timestamp",
-              type: "uint256",
-            },
           ],
-          name: "updateTokenClaim",
-          outputs: [],
           stateMutability: "nonpayable",
           type: "function",
         },
@@ -5803,46 +9627,42 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "uint256",
-              name: "",
+              name: "marketId",
               type: "uint256",
             },
           ],
-          name: "userTokenClaims",
+          name: "withdrawMarketCollateral",
           outputs: [
             {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-            {
               internalType: "uint256",
-              name: "user",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "claimedAmount",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "claimedTimestamp",
+              name: "amount",
               type: "uint256",
             },
           ],
-          stateMutability: "view",
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
           inputs: [
             {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
               internalType: "address",
-              name: "_token",
+              name: "to",
               type: "address",
             },
           ],
-          name: "withdraw",
-          outputs: [],
+          name: "withdrawMarketCollateralTo",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
           stateMutability: "nonpayable",
           type: "function",
         },
@@ -5858,8 +9678,10 @@ const deployedContracts = {
         revokeRole: "@openzeppelin/contracts/access/AccessControl.sol",
       },
     },
-    PrecogToken: {
-      address: "0x7779ec685Aa0bf5483B3e0c15dAf246d2d978888",
+  },
+  84532: {
+    LatentToken: {
+      address: "0x3cE4e93Ac026Ba86d02AFB9e5E9926b7AcdE0360",
       abi: [
         {
           inputs: [
@@ -6306,16 +10128,14 @@ const deployedContracts = {
         transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
       },
     },
-  },
-  84532: {
-    LatentToken: {
-      address: "0x3cE4e93Ac026Ba86d02AFB9e5E9926b7AcdE0360",
+    MateToken: {
+      address: "0xC139C86de76DF41c041A30853C3958427fA7CEbD",
       abi: [
         {
           inputs: [
             {
               internalType: "address",
-              name: "precogMaster",
+              name: "Owner",
               type: "address",
             },
           ],
@@ -7433,6 +11253,912 @@ const deployedContracts = {
           ],
           name: "withdraw",
           outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    PrecogMarketV8: {
+      address: "0xfB4CD4779980896893B1855ad5A89E3ACCA7fc87",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "updater",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint64",
+              name: "newStartTimestamp",
+              type: "uint64",
+            },
+            {
+              indexed: false,
+              internalType: "uint64",
+              name: "newEndTimestamp",
+              type: "uint64",
+            },
+          ],
+          name: "DatesUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "oracle",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "closeTimestamp",
+              type: "uint256",
+            },
+          ],
+          name: "ResultReported",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenIn",
+              type: "uint256",
+            },
+          ],
+          name: "SharesBought",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenOut",
+              type: "uint256",
+            },
+          ],
+          name: "SharesRedeemed",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "tokenOut",
+              type: "uint256",
+            },
+          ],
+          name: "SharesSold",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "ONE_SHARE",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "_maxCost",
+              type: "uint256",
+            },
+          ],
+          name: "buy",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenCost",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_buyer",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_payer",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+          ],
+          name: "buyFor",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenCost",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+          ],
+          name: "buyPrice",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "tokenCost",
+              type: "int128",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "closeTimestamp",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "datesUpdateEnabled",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+          ],
+          name: "enableDatesUpdate",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "endTimestamp",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+          ],
+          name: "getAccountOutcomeBalances",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "balances",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+          ],
+          name: "getAccountStats",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "buys",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "sells",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deposited",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "withdrawn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "redeemed",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getMarketInfo",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "int128[]",
+              name: "",
+              type: "int128[]",
+            },
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getMarketSetupInfo",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getPrices",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "buyPrices",
+              type: "uint256[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "sellPrices",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getWithdrawableCollateral",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "id",
+          outputs: [
+            {
+              internalType: "uint32",
+              name: "",
+              type: "uint32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_token",
+              type: "address",
+            },
+          ],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "oracle",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address[]",
+              name: "_accounts",
+              type: "address[]",
+            },
+          ],
+          name: "redeemBatch",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "redeems",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+          ],
+          name: "redeemFor",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "redeemedShares",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "redeemShares",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "redeemedShares",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+          ],
+          name: "reportResult",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "result",
+          outputs: [
+            {
+              internalType: "uint16",
+              name: "",
+              type: "uint16",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "_minReturn",
+              type: "uint256",
+            },
+          ],
+          name: "sell",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenReturn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_seller",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_receiver",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+          ],
+          name: "sellFor",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "tokenReturn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "_amount",
+              type: "int128",
+            },
+          ],
+          name: "sellPrice",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "tokenReturn",
+              type: "int128",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_oracle",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcomes",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_liquidity",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_overround",
+              type: "uint256",
+            },
+          ],
+          name: "setup",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_oracle",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_outcomes",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_liquidity",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_overround",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_funding",
+              type: "uint256",
+            },
+          ],
+          name: "setupVL",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "startTimestamp",
+          outputs: [
+            {
+              internalType: "uint64",
+              name: "",
+              type: "uint64",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "token",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalOutcomes",
+          outputs: [
+            {
+              internalType: "uint16",
+              name: "",
+              type: "uint16",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_newStartTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_newEndTimestamp",
+              type: "uint256",
+            },
+          ],
+          name: "updateDates",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_newOracle",
+              type: "address",
+            },
+          ],
+          name: "updateOracle",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_newSellFeeFactor",
+              type: "uint256",
+            },
+          ],
+          name: "updateSellFeeFactor",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_token",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_to",
+              type: "address",
+            },
+          ],
+          name: "withdrawAvailableCollateral",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
           stateMutability: "nonpayable",
           type: "function",
         },
@@ -8869,6 +13595,2890 @@ const deployedContracts = {
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        DEFAULT_ADMIN_ROLE: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleAdmin: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleMember: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleMemberCount: "@openzeppelin/contracts/access/AccessControl.sol",
+        grantRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        hasRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        renounceRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        revokeRole: "@openzeppelin/contracts/access/AccessControl.sol",
+      },
+    },
+    PrecogMasterV8: {
+      address: "0x61ec71F1Fd37ecc20d695E83F3D68e82bEfe8443",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialAdmin",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "creator",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "market",
+              type: "address",
+            },
+          ],
+          name: "MarketCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "previousAdminRole",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "newAdminRole",
+              type: "bytes32",
+            },
+          ],
+          name: "RoleAdminChanged",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleGranted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleRevoked",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "CALLER_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "DEFAULT_ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "MARKET_OPERATOR_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "PERMIT2",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "addAllowedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "oracle",
+              type: "address",
+            },
+          ],
+          name: "addAllowedOracle",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "addAllowedReceiver",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addCaller",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addMarketOperator",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "addOwnedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "allowedCollaterals",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "allowedOracles",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "allowedReceivers",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nonce",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "sig",
+              type: "bytes",
+            },
+          ],
+          name: "buyMarketSharesFor",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "payer",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nonce",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "sig",
+              type: "bytes",
+            },
+          ],
+          name: "buyMarketSharesForWithPayer",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "question",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "resolutionCriteria",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "imageURL",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "category",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "outcomes",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "creator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "operator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "market",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateral",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketData",
+              name: "data",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "oracle",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "totalOutcomes",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "liquidity",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "overround",
+                  type: "uint256",
+                },
+                {
+                  internalType: "int256",
+                  name: "sellFeeFactor",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "collateralFunding",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateralFunder",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketConfig",
+              name: "config",
+              type: "tuple",
+            },
+          ],
+          name: "createCustomMarket",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "newMarketId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "question",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "resolutionCriteria",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "imageURL",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "category",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "outcomes",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "creator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "operator",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "market",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateral",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketData",
+              name: "data",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "oracle",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "totalOutcomes",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "liquidity",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "overround",
+                  type: "uint256",
+                },
+                {
+                  internalType: "int256",
+                  name: "sellFeeFactor",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "collateralFunding",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "collateralFunder",
+                  type: "address",
+                },
+              ],
+              internalType: "struct PrecogMasterV8.MarketConfig",
+              name: "config",
+              type: "tuple",
+            },
+          ],
+          name: "createMarket",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "newMarketId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "createdMarkets",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getMarketsConfigs",
+          outputs: [
+            {
+              internalType: "address",
+              name: "implementation",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "minOverround",
+              type: "uint256",
+            },
+            {
+              internalType: "int256",
+              name: "minSellFeeFactor",
+              type: "int256",
+            },
+            {
+              internalType: "uint256",
+              name: "feeFactor",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleAdmin",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "getRoleMember",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleMemberCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "grantRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "hasRole",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "marketAccountInfo",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "buys",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "sells",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deposited",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "withdrawn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "redeemed",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256[]",
+              name: "balances",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+          ],
+          name: "marketBuy",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+          ],
+          name: "marketBuyPrice",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "tokenCost",
+              type: "int128",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "uint8",
+              name: "v",
+              type: "uint8",
+            },
+            {
+              internalType: "bytes32",
+              name: "r",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes32",
+              name: "s",
+              type: "bytes32",
+            },
+          ],
+          name: "marketBuyWithPermit",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nonce",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "deadline",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "sig",
+              type: "bytes",
+            },
+          ],
+          name: "marketBuyWithPermit2",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketCollateralInfo",
+          outputs: [
+            {
+              internalType: "address",
+              name: "token",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "symbol",
+              type: "string",
+            },
+            {
+              internalType: "uint8",
+              name: "decimals",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketPrices",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "buyPrices",
+              type: "uint256[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "sellPrices",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketRedeemShares",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "shares",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketResultInfo",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "result",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "closed",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "reporter",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "minAmountOut",
+              type: "uint256",
+            },
+          ],
+          name: "marketSell",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountOut",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+          ],
+          name: "marketSellPrice",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "tokenReturn",
+              type: "int128",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketSetupInfo",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "initialShares",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
+              name: "alpha",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "outcomes",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sellFeeFactor",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "initialCollateral",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "marketSharesInfo",
+          outputs: [
+            {
+              internalType: "int128",
+              name: "totalShares",
+              type: "int128",
+            },
+            {
+              internalType: "int128[]",
+              name: "sharesBalances",
+              type: "int128[]",
+            },
+            {
+              internalType: "int128",
+              name: "redeemed",
+              type: "int128",
+            },
+            {
+              internalType: "int128",
+              name: "cost",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "buys",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "sells",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "marketTransferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "marketToken",
+              type: "address",
+            },
+          ],
+          name: "marketWithdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "markets",
+          outputs: [
+            {
+              internalType: "string",
+              name: "question",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "resolutionCriteria",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "imageURL",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "category",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "outcomes",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "creator",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "market",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "startTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "endTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "ownedCollaterals",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "outcome",
+              type: "uint256",
+            },
+            {
+              internalType: "int128",
+              name: "sharesAmount",
+              type: "int128",
+            },
+            {
+              internalType: "uint256",
+              name: "maxAmountIn",
+              type: "uint256",
+            },
+          ],
+          name: "ownedMarketBuy",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amountIn",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "ownedTokenBurn",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "ownedTokenMint",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "ownedTokenMove",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "ownedToken",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "newPrecogMaster",
+              type: "address",
+            },
+          ],
+          name: "ownedTokenTransferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "removeAllowedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "oracle",
+              type: "address",
+            },
+          ],
+          name: "removeAllowedOracle",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "removeAllowedReceiver",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeCaller",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeMarketOperator",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "collateral",
+              type: "address",
+            },
+          ],
+          name: "removeOwnedCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "renounceRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "revokeRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "market",
+              type: "address",
+            },
+          ],
+          name: "setBaseMarket",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "overround",
+              type: "uint256",
+            },
+          ],
+          name: "setMarketMinOverround",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "int256",
+              name: "sellFeeFactor",
+              type: "int256",
+            },
+          ],
+          name: "setMarketMinSellFeeFactor",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "feeFactor",
+              type: "uint256",
+            },
+          ],
+          name: "setProtocolFeeFactor",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "question",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "resolutionCriteria",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "imageURL",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "category",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "outcomes",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "marketCreator",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "startTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "endTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "marketOracle",
+              type: "address",
+            },
+            {
+              internalType: "int256",
+              name: "sellFeeFactor",
+              type: "int256",
+            },
+          ],
+          name: "updateMarket",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_token",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "withdrawMarketCollateral",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "withdrawMarketCollateralTo",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        DEFAULT_ADMIN_ROLE: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleAdmin: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleMember: "@openzeppelin/contracts/access/AccessControl.sol",
+        getRoleMemberCount: "@openzeppelin/contracts/access/AccessControl.sol",
+        grantRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        hasRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        renounceRole: "@openzeppelin/contracts/access/AccessControl.sol",
+        revokeRole: "@openzeppelin/contracts/access/AccessControl.sol",
+      },
+    },
+    PrecogRealityOracleV1: {
+      address: "0x3a2FEdD33Cde9c825a34a0efBC1a92870E53c4ef",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialAdmin",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "previousAdminRole",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "newAdminRole",
+              type: "bytes32",
+            },
+          ],
+          name: "RoleAdminChanged",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleGranted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleRevoked",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "DEFAULT_ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "REPORTER_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addMarketReporter",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "addReporter",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes32",
+              name: "answer",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "maxPrevious",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "bond",
+              type: "uint256",
+            },
+          ],
+          name: "answerOpenQuestion",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "arbitrator",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getRealityBalance",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "getRealityQuestionInfo",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "questionId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint32",
+              name: "openingTS",
+              type: "uint32",
+            },
+            {
+              internalType: "uint32",
+              name: "timeout",
+              type: "uint32",
+            },
+            {
+              internalType: "uint256",
+              name: "bounty",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "bond",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "getRealityResultInfo",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "questionId",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes32",
+              name: "answer",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint32",
+              name: "finalizeTS",
+              type: "uint32",
+            },
+            {
+              internalType: "bytes32",
+              name: "lastHash",
+              type: "bytes32",
+            },
+            {
+              internalType: "bool",
+              name: "isFinalized",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "isPendingArbitration",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleAdmin",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "getRoleMember",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleMemberCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "grantRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "hasRole",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "isMarketRegistered",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "isMarketReporter",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address[]",
+              name: "accounts",
+              type: "address[]",
+            },
+          ],
+          name: "marketRedeemBatch",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "marketReporters",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "markets",
+          outputs: [
+            {
+              internalType: "address",
+              name: "market",
+              type: "address",
+            },
+            {
+              internalType: "bytes32",
+              name: "questionId",
+              type: "bytes32",
+            },
+            {
+              internalType: "string",
+              name: "outcomes",
+              type: "string",
+            },
+            {
+              internalType: "bool",
+              name: "answered",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "resultIndex",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "resultLabel",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "maxAnswerBond",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "bounty",
+              type: "uint256",
+            },
+            {
+              internalType: "uint32",
+              name: "templateId",
+              type: "uint32",
+            },
+            {
+              internalType: "string",
+              name: "question",
+              type: "string",
+            },
+            {
+              internalType: "string[]",
+              name: "outcomes",
+              type: "string[]",
+            },
+            {
+              internalType: "string",
+              name: "category",
+              type: "string",
+            },
+            {
+              internalType: "uint32",
+              name: "timeout",
+              type: "uint32",
+            },
+            {
+              internalType: "uint32",
+              name: "startTime",
+              type: "uint32",
+            },
+          ],
+          name: "openQuestion",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "questionId",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "precogMaster",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "reality",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "questionId",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes32[]",
+              name: "historyHashes",
+              type: "bytes32[]",
+            },
+            {
+              internalType: "address[]",
+              name: "answerers",
+              type: "address[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "bonds",
+              type: "uint256[]",
+            },
+            {
+              internalType: "bytes32[]",
+              name: "answers",
+              type: "bytes32[]",
+            },
+          ],
+          name: "realityClaimWinnings",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "bounty",
+              type: "uint256",
+            },
+            {
+              internalType: "uint32",
+              name: "templateId",
+              type: "uint32",
+            },
+            {
+              internalType: "string",
+              name: "question",
+              type: "string",
+            },
+            {
+              internalType: "string[]",
+              name: "outcomes",
+              type: "string[]",
+            },
+            {
+              internalType: "string",
+              name: "category",
+              type: "string",
+            },
+            {
+              internalType: "uint32",
+              name: "timeout",
+              type: "uint32",
+            },
+            {
+              internalType: "uint32",
+              name: "startTime",
+              type: "uint32",
+            },
+            {
+              internalType: "uint32",
+              name: "nonce",
+              type: "uint32",
+            },
+          ],
+          name: "realityOpenQuestion",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "questionId",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "bond",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes32",
+              name: "questionId",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes32",
+              name: "answer",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "maxPrevious",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "answerer",
+              type: "address",
+            },
+          ],
+          name: "realitySubmitAnswerFor",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "realityWithdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "market",
+              type: "address",
+            },
+            {
+              internalType: "address[]",
+              name: "initialReporters",
+              type: "address[]",
+            },
+          ],
+          name: "registerMarket",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeAdmin",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeMarketReporter",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "removeReporter",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "renounceRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+          ],
+          name: "reportResult",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "revokeRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "arbitratorProxy",
+              type: "address",
+            },
+          ],
+          name: "setArbitrator",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "maxBond",
+              type: "uint256",
+            },
+          ],
+          name: "setMaxAnswerBond",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "master",
+              type: "address",
+            },
+          ],
+          name: "setPrecogMaster",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "realityProxy",
+              type: "address",
+            },
+          ],
+          name: "setReality",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "marketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint32",
+              name: "templateId",
+              type: "uint32",
+            },
+            {
+              internalType: "string",
+              name: "question",
+              type: "string",
+            },
+            {
+              internalType: "string[]",
+              name: "outcomes",
+              type: "string[]",
+            },
+            {
+              internalType: "string",
+              name: "category",
+              type: "string",
+            },
+            {
+              internalType: "uint32",
+              name: "timeout",
+              type: "uint32",
+            },
+            {
+              internalType: "uint32",
+              name: "startTime",
+              type: "uint32",
+            },
+            {
+              internalType: "bytes32",
+              name: "answer",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "bond",
+              type: "uint256",
+            },
+          ],
+          name: "submitResult",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "questionId",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_token",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
         },
       ],
       inheritedFunctions: {

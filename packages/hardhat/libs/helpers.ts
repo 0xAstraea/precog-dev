@@ -40,3 +40,23 @@ export async function getMarketV7Alpha(marketAddress: string): Promise<number>{
     const alphaInt128 = BigInt(rawValue.slice(0, 34));
     return fromInt128toNumber(alphaInt128);
 }
+
+/**
+ * Returns how many decimal places match between two numbers
+ * This measures **decimal agreement after rounding**, not numeric distance.
+ *
+ * Examples:
+ *   matchedDecimalPlaces(1, 1.0001)        -> 3
+ *   matchedDecimalPlaces(1.2345, 1.2349)   -> 3
+ *
+ * @param a   First number
+ * @param b   Second number
+ * @param max Maximum decimal places to check (default: 18)
+ * @returns   Number of matching decimal places
+ */
+export function matchedDecimalPlaces(a: number, b: number, max = 18): number {
+  for (let d = max; d >= 0; d--) {
+    if (a.toFixed(d) === b.toFixed(d)) return d;
+  }
+  return 0;
+}

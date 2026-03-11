@@ -4,24 +4,82 @@ import { useState } from "react";
 import { usePublicClient, useAccount, useWriteContract } from "wagmi";
 import {erc20Abi, parseUnits, formatUnits} from "viem";
 import { useScaffoldContract } from "./scaffold-eth";
-import { useTransactor } from "~~/hooks/scaffold-eth";
+import { ContractName } from "~~/utils/scaffold-eth/contract";
+import { getPrecogMasterContractKey, type PrecogMasterVersion } from "~~/utils/scaffold-eth/contractsData";
+import { useTransactor } from "./scaffold-eth/useTransactor";
 import { fromNumberToInt128, fromInt128toNumber } from "~~/utils/numbers";
 import { notification } from "~~/utils/scaffold-eth";
 
-export function useMarketActions() {
+type AccountSharesTuple = readonly [bigint, bigint, bigint, bigint, bigint, readonly bigint[]];
+
+export function useMarketActions(version: PrecogMasterVersion = "v8") {
   const [isPending, setIsPending] = useState(false);
   const { address: connectedAddress } = useAccount();
   const publicClient = usePublicClient();
   const writeTx = useTransactor();
   const { writeContractAsync } = useWriteContract();
+  const marketContractName = (version === "v8" ? "PrecogMarketV8" : "PrecogMarketV7") as ContractName;
+  const masterContractName = getPrecogMasterContractKey(version) as ContractName;
 
   const { data: marketContract } = useScaffoldContract({
-    contractName: "PrecogMarketV7",
+    contractName: marketContractName,
   });
 
   const { data: masterContract } = useScaffoldContract({
-    contractName: "PrecogMasterV7",
+    contractName: masterContractName,
   });
+
+  const getCollateralAddressV7 = async (marketAddress: string): Promise<`0x${string}`> => {
+    if (!publicClient || !marketContract) throw new Error("Missing dependencies for collateral lookup (v7)");
+    const collateral = (await publicClient.readContract({
+      address: marketAddress as `0x${string}`,
+      abi: marketContract.abi,
+      functionName: "token",
+    })) as `0x${string}`;
+    return collateral;
+  };
+
+  const getCollateralAddressV8 = async (marketId: number): Promise<`0x${string}`> => {
+    if (!publicClient || !masterContract) throw new Error("Missing dependencies for collateral lookup (v8)");
+    const collateralInfo = (await publicClient.readContract({
+      address: masterContract.address,
+      abi: masterContract.abi,
+      functionName: "marketCollateralInfo",
+      args: [BigInt(marketId)],
+    })) as [`0x${string}`, string, string, number];
+    return collateralInfo[0];
+  };
+
+  const getCollateralAddress = async (marketId: number, marketAddress: string): Promise<`0x${string}`> => {
+    if (!publicClient || !masterContract || !marketContract) {
+      throw new Error("Missing dependencies for collateral lookup");
+    }
+    return version === "v8" ? getCollateralAddressV8(marketId) : getCollateralAddressV7(marketAddress);
+  };
+
+  const getAccountInfoV7 = async (marketId: number): Promise<AccountSharesTuple> => {
+    if (!publicClient || !masterContract || !connectedAddress) {
+      throw new Error("Missing dependencies for account info (v7)");
+    }
+    return (await publicClient.readContract({
+      address: masterContract.address,
+      abi: masterContract.abi,
+      functionName: "marketAccountShares",
+      args: [BigInt(marketId), connectedAddress],
+    })) as AccountSharesTuple;
+  };
+
+  const getAccountInfoV8 = async (marketId: number): Promise<AccountSharesTuple> => {
+    if (!publicClient || !masterContract || !connectedAddress) {
+      throw new Error("Missing dependencies for account info (v8)");
+    }
+    return (await publicClient.readContract({
+      address: masterContract.address,
+      abi: masterContract.abi,
+      functionName: "marketAccountInfo",
+      args: [BigInt(marketId), connectedAddress],
+    } as any)) as unknown as AccountSharesTuple;
+  };
 
 
   /**
@@ -47,12 +105,8 @@ export function useMarketActions() {
     setIsPending(true);
 
     try {
-      // Get the collateral token address from the market
-      const collateral = await publicClient.readContract({
-        address: marketAddress as `0x${string}`,
-        abi: marketContract.abi,
-        functionName: "token",
-      }) as `0x${string}`;
+      // V8 reads collateral from master.marketCollateralInfo; V7 keeps market.token.
+      const collateral = await getCollateralAddress(marketId, marketAddress);
 
       // Check user's token balance
       const balance = await publicClient.readContract({
@@ -77,34 +131,24 @@ export function useMarketActions() {
         return;
       }
 
-      // Get master contract's token for approval check
-      const masterToken = await publicClient.readContract({
-        address: masterContract.address,
-        abi: masterContract.abi,
-        functionName: "token",
-      }) as `0x${string}`;
-
       // Check if approval is needed
-      if (collateral.toLowerCase() !== masterToken.toLowerCase()) {
-        const allowance = await publicClient.readContract({
-          address: collateral,
-          abi: erc20Abi,
-          functionName: "allowance",
-          args: [connectedAddress, masterContract.address],
-        }) as bigint;
+      const allowance = await publicClient.readContract({
+        address: collateral,
+        abi: erc20Abi,
+        functionName: "allowance",
+        args: [connectedAddress, masterContract.address],
+      }) as bigint;
 
-        if (allowance < maxTokenIn) {
-          // Approve tokens
-          const writeApproveAsync = () =>
-            writeContractAsync({
-              address: collateral,
-              abi: erc20Abi,
-              functionName: "approve",
-              args: [masterContract.address, maxTokenWei],
-            });
+      if (allowance < maxTokenWei) {
+        const writeApproveAsync = () =>
+          writeContractAsync({
+            address: collateral,
+            abi: erc20Abi,
+            functionName: "approve",
+            args: [masterContract.address, maxTokenWei],
+          });
 
-          await writeTx(writeApproveAsync, { blockConfirmations: 2 });
-        }
+        await writeTx(writeApproveAsync, { blockConfirmations: 2 });
       }
 
       // Execute buy transaction
@@ -148,12 +192,7 @@ export function useMarketActions() {
 
     try {
       // Check user's shares balance
-      const accountShares = await publicClient.readContract({
-        address: masterContract.address,
-        abi: masterContract.abi,
-        functionName: "marketAccountShares",
-        args: [BigInt(marketId), connectedAddress],
-      }) as [bigint, bigint, bigint, bigint, bigint, readonly bigint[]];
+      const accountShares = version === "v8" ? await getAccountInfoV8(marketId) : await getAccountInfoV7(marketId);
 
       // Get the sell price and calculate minimum tokens to receive
       const priceResult = await publicClient.readContract({
@@ -163,12 +202,7 @@ export function useMarketActions() {
         args: [BigInt(marketId), BigInt(marketOutcome), fromNumberToInt128(sharesToTrade)],
       }) as bigint;
 
-      // Get the collateral token address from the market
-      const collateral = await publicClient.readContract({
-        address: marketAddress as `0x${string}`,
-        abi: marketContract.abi,
-        functionName: "token",
-      }) as `0x${string}`;
+      const collateral = await getCollateralAddress(marketId, marketAddress);
 
       // Check user's token balance
       const tokenDecimals = await publicClient.readContract({

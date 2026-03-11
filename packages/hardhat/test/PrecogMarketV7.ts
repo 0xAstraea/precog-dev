@@ -2,7 +2,8 @@ import {expect} from "chai";
 import {ethers} from "hardhat";
 import {PrecogToken, PrecogMarketV7} from "../typechain-types";
 import {HardhatEthersSigner} from "@nomicfoundation/hardhat-ethers/signers";
-
+import {fromInt128toNumber, fromNumberToInt128, getMarketV7Alpha} from "../libs/helpers"
+import {LSLMSR} from "../libs/markets";
 
 describe("Precog Market V7", function () {
     const detailsEnabled: boolean = process.env.TEST_DETAILS === 'true';
@@ -15,6 +16,7 @@ describe("Precog Market V7", function () {
     let user: HardhatEthersSigner;
     let quadMarket: PrecogMarketV7;
     let quadMarketAddress: string;
+    let localMarket: LSLMSR;
 
     beforeEach(async function () {
         [owner, caller, user] = await ethers.getSigners();
@@ -65,11 +67,12 @@ describe("Precog Market V7", function () {
 
             const marketId: number = 1;
             const totalOutcomes: number = 2;
-            const subsidy: bigint = ethers.parseEther('2000');
+            const initialShares = 2000;
+            const subsidy: bigint = ethers.parseEther(initialShares.toString());
             const overround: number = 200;
             await market.setup(marketId, owner.address, totalOutcomes, subsidy, overround);
 
-            // Checks about market initialization final costs / initial needed supply
+            // Checks about market initialization final costs and the initial supply needed
             const ownerFinalBalance: bigint = await pre.balanceOf(owner.address);
             expect(await pre.balanceOf(marketAddress)).to.equal(subsidy);
             expect(ownerFinalBalance).to.equal(ownerInitialBalance - subsidy);
@@ -77,8 +80,6 @@ describe("Precog Market V7", function () {
             // Calculate initial Alpha
             const calculatedAlpha = (overround / 10000) / (totalOutcomes * Math.log(totalOutcomes));
             const calculatedBeta = (2000 * totalOutcomes) * calculatedAlpha;
-            // console.log('calculatedAlpha', calculatedAlpha);
-            // console.log('calculatedBeta', calculatedBeta);
 
             // Only for testing (making `alpha` & `beta` public variables)
             // const alphaInt128 = await market.alpha();
@@ -113,6 +114,9 @@ describe("Precog Market V7", function () {
             // Checks about initial Math calculation to ensure EVM floating point accuracy
             expect(calculatedAlpha).to.equal(marketAlpha);
             expect(calculatedBeta).to.equal(marketBeta);
+
+            // Register local market (to make verification against local calculations)
+            localMarket = new LSLMSR(['A', 'B'], marketAlpha, initialShares);
         })
     })
 
@@ -175,16 +179,13 @@ describe("Precog Market V7", function () {
             for (const outcome of possibleOutcomes) {
                 for (const amount of sharesAmounts) {
                     // Calculated price
-                    const cost = marketTradeCost(shares, alpha, outcome, amount);
+                    // const cost = marketTradeCost(shares, alpha, outcome, amount);
+                    // const price = cost / amount;
+                    const outcomeLabel = localMarket.getOutcome(outcome);
+                    const cost = localMarket.tradeCost(outcomeLabel, amount);
                     const price = cost / amount;
-
-                    // Calcula max shares from max cost
-                    const maxCost = cost;
-                    const sharesBought = marketSharesFromCost(shares, alpha, outcome, maxCost);
-
                     if (detailsEnabled) {
                         console.log(`\t|  Buy: outcome=${outcome}, amount=${amount} => ${price} collateral/share`);
-                        console.log(`\t|       Max Cost=${maxCost} => ${sharesBought} shares (estimate)`);
                     }
                     calculatedBuyPrices[outcome].push(price);
                 }
@@ -373,7 +374,7 @@ describe("Precog Market V7", function () {
             const fiftySharesInt128: bigint = fromNumberToInt128(50);
             const hundredSharesInt128: bigint = fromNumberToInt128(100);
 
-            // Buying 199 shares of YES (note: 1 share it is already bought by previous test case)
+            // Buying 199 shares of YES (note: 1 share it is already bought by the previous test case)
             await market.buy(outcomeYes, oneSharesInt128);
             await market.buy(outcomeYes, oneSharesInt128);
             await market.buy(outcomeYes, oneSharesInt128);
@@ -386,7 +387,7 @@ describe("Precog Market V7", function () {
             await market.buy(outcomeYes, fiftySharesInt128);
             await market.buy(outcomeYes, hundredSharesInt128);
 
-            // Buying 199 shares of NO (note: 1 share it is already bought by previous test case)
+            // Buying 199 shares of NO (note: 1 share it is already bought by the previous test case)
             await market.buy(outcomeNo, oneSharesInt128);
             await market.buy(outcomeNo, oneSharesInt128);
             await market.buy(outcomeNo, oneSharesInt128);
@@ -633,16 +634,16 @@ describe("Precog Market V7", function () {
 
             const YesOutcome: number = 1;
 
-            // User BUY 1 share of YES at low price
+            // User BUY 1 share of YES at some initial low price
             await market.connect(user).buy(YesOutcome, fromNumberToInt128(1));
 
-            // Other user BUY 1 share of YES
+            // Another user BUY 1 share of YES
             await market.connect(caller).buy(YesOutcome, fromNumberToInt128(1));
 
             // User SELL 1 share of YES at a higher price
             await market.connect(user).sell(YesOutcome, fromNumberToInt128(1));
 
-            // Other user SELL 1 share of YES (to keep equality, this other user operate at loss)
+            // Another user SELLs 1 share of YES (to keep equality, this user will operate at a loss)
             await market.connect(caller).sell(YesOutcome, fromNumberToInt128(1));
 
             const balanceAfter: bigint = await pre.balanceOf(user.address);
@@ -956,7 +957,7 @@ describe("Precog Market V7", function () {
         })
     })
 
-    describe("Test QUATERNARY outcome Market", function () {
+    describe("Test quaternary outcome Market", function () {
         it("| Deploy and setup a quaternary Market", async function () {
             if (detailsEnabled) console.log("");
             const PrecogMarket = await ethers.getContractFactory("PrecogMarketV7");
@@ -975,12 +976,13 @@ describe("Precog Market V7", function () {
             await pre.connect(caller).approve(quadMarketAddress, ethers.parseEther('10000'));
             await pre.connect(user).approve(quadMarketAddress, ethers.parseEther('10000'));
 
-            // Setup new quaternary market
+            // Initialize a new quaternary market
             const ownerInitialBalance: bigint = await pre.balanceOf(owner.address);
             const marketId: number = 2;
             const totalOutcomes: number = 4;
-            const subsidy: bigint = ethers.parseEther('500');
-            const overround: number = 400;  // As general rule 100x totalOutcomes
+            const initialShares = 500;
+            const subsidy: bigint = ethers.parseEther(initialShares.toString());
+            const overround: number = 400;  // General rule: 100x totalOutcomes
             await quadMarket.setup(marketId, owner.address, totalOutcomes, subsidy, overround);
             const ownerFinalBalance: bigint = await pre.balanceOf(owner.address);
             expect(await pre.balanceOf(quadMarketAddress)).to.equal(subsidy);
@@ -999,7 +1001,11 @@ describe("Precog Market V7", function () {
                 console.log(`\t|    Liquidity: ${initialLiquidity}`);
             }
             expect(totalShares).be.equal(oneShares + twoShares + threeShares + fourShares);
-            expect(initialLiquidity).be.equal(520);  // 500 (Subsidy) + 4% (overrround)
+            expect(initialLiquidity).be.equal(520);  // 500 (Subsidy) + 4% (overround)
+
+            // Register local market (to make verification against local calculations)
+            const marketAlpha: number = await getMarketV7Alpha(quadMarketAddress)
+            localMarket = new LSLMSR(['A', 'B'], marketAlpha, initialShares);
         })
 
         it("| Check base quaternary Market prices", async function () {
@@ -1067,11 +1073,6 @@ describe("Precog Market V7", function () {
             // Pre-calculate buy price (after trade is made) from Chain
             const priceInt128OneMoreShare: bigint = await quadMarket.buyPrice(outcome, fromNumberToInt128(shares + 1));
             const futureBuyPrice: number = fromInt128toNumber(priceInt128OneMoreShare) - price;
-            // Pre-calculate buy price (after trade is made) with local calculation from Chain state
-            const marketInfo: any[] = await quadMarket.getMarketInfo();  // Get market current state
-            const sharesBalances: number[] = marketInfo[1].map(fromInt128toNumber);  // Get outcome shares as numbers
-            const alpha: number = await getMarketV7Alpha(quadMarketAddress);  // Get initial market alpha
-            const futureBuyPriceLocal: number = marketPriceAfterTrade(sharesBalances, alpha, outcome, shares);
 
             // Execute buy trade
             await quadMarket.buy(outcome, sharesInt128);
@@ -1086,7 +1087,6 @@ describe("Precog Market V7", function () {
             const priceInt128BeforeBuy: bigint = await quadMarket.buyPrice(outcome, fromNumberToInt128(1));
             const actualBuyPrice: number = fromInt128toNumber(priceInt128BeforeBuy);
             if (detailsEnabled) {
-                console.log(`\t| Future Buy price (before buy): ${futureBuyPriceLocal} [local]`);
                 console.log(`\t| Future Buy price (before buy): ${futureBuyPrice} [chain]`);
                 console.log(`\t| Actual Buy price (after buy) : ${actualBuyPrice} [chain]`);
             }
@@ -1235,119 +1235,3 @@ describe("Precog Market V7", function () {
         })
     })
 })
-
-
-// Utility functions to verify contract Math
-function fromInt128toNumber(a: bigint): number {
-    return Number(BigInt(a)) / Number((BigInt(2) ** BigInt(64)));
-}
-
-function fromNumberToInt128(a: number): bigint {
-    return BigInt(a) * (BigInt(2) ** BigInt(64))
-}
-
-// TODO Extract this Market helper functions to a custom lib to be used by anyone
-/**
- * Calculate the total amount of collateral deposited in a Market
- *
- * @param shares - List of shares balances for all outcomes in the Market
- * @param alpha - Fixed PrecogMarket contract variable defined on market initialization
- */
-function marketCost(shares: number[], alpha: number): number {
-    // Calculate current Beta
-    const totalShares = shares.reduce((sum, s) => sum + s, 0);
-    const beta = totalShares * alpha;
-
-    // Calculate total collateral in the market
-    // Taking into account that zero share balance it is not a valid amount
-    const sumTotal = shares.reduce((sum, s) => s === 0 ? sum : sum + Math.exp(s / beta), 0);
-    return beta * Math.log(sumTotal);
-}
-
-/**
- * Calculate the total amount of collateral will be deposited in a Market after some trade is made
- *
- * @param shares - List of shares balances for all outcomes in the Market
- * @param alpha - Fixed PrecogMarket contract variable defined on market initialization
- * @param outcome - Index of the market outcome to be traded
- * @param amount - Total amount of shares to be traded in the market (positive for BUYs and negative for SELLs)
- */
-function marketCostAfterTrade(shares: number[], alpha: number, outcome: number, amount: number): number {
-    // Create a new variable to avoid updating shares balances received
-    const newShares = [...shares];
-
-    // Register trade on share balance for the received outcome
-    newShares[outcome] += amount;
-
-    // Get total collateral in the market after the trade
-    return marketCost(newShares, alpha);
-}
-
-/**
- * Calculate the amount of collateral should a trader should deposit for a determinate trade
- *
- * @param shares - List of shares balances for all outcomes in the Market
- * @param alpha - Fixed PrecogMarket contract variable defined on market initialization
- * @param outcome - Index of the market outcome to be traded
- * @param amount - Amount of shares to be traded in the market (positive for BUYs and negative for SELLs)
- */
-function marketTradeCost(shares: number[], alpha: number, outcome: number, amount: number): number {
-    const cost = marketCost(shares, alpha);
-    const costAfterTrade = marketCostAfterTrade(shares, alpha, outcome, amount);
-    return Math.abs(costAfterTrade - cost);
-}
-
-/**
- * Calculate the amount of collateral should a trader should deposit for a deteminated trade
- *
- * @param shares - List of shares balances for all outcomes in the Market
- * @param alpha - Fixed PrecogMarket contract variable defined on market initialization
- * @param outcome - Index of the market outcome to be traded
- * @param totalCost - Total amount of collateral than can be consumed by the trade
- */
-function marketSharesFromCost(shares: number[], alpha: number, outcome: number, totalCost: number): number {
-    const maxIterations = 100;
-    const tolerance = 0.0001;
-
-    let low = totalCost * 0.999; // Min amount of shares (max price per share: 0.9999)
-    let high = totalCost * 10000; // Max amount of shares (min price per share: 0.0001)
-    let mid: number = 0;  // Best estimate
-    for (let i = 0; i < maxIterations; i++) {
-        mid = (low + high) / 2;
-        const cost = marketTradeCost(shares, alpha, outcome, mid);
-
-        if (Math.abs(cost - totalCost) < tolerance) return mid;
-        if (cost < totalCost) low = mid;
-        else high = mid;
-    }
-    return mid; // Return best estimate
-}
-
-/**
- * Calculate the amount of collateral to buy/sell a single share after some trade is made
- *
- * @param shares - List of shares balances for all outcomes in the Market
- * @param alpha - Fixed PrecogMarket contract variable defined on market initialization
- * @param outcome - Index of the market outcome to be traded
- * @param amount - Total of shares to be traded in the market (negative amount for SELL trades)
- */
-function marketPriceAfterTrade(shares: number[], alpha: number, outcome: number, amount: number): number {
-    const costAfterTrade = marketCostAfterTrade(shares, alpha, outcome, amount);
-    const oneShareDelta = amount > 0 ? amount + 1 : amount - 1;
-    const costAfterTradeWithDelta = marketCostAfterTrade(shares, alpha, outcome, oneShareDelta);
-    return Math.abs(costAfterTradeWithDelta - costAfterTrade);
-}
-
-/**
- * Getter for the Alpha private value of a PrecogMarketV7 contract
- *  Solidity earlier defined number variable get the last bytes when packing
- *  [storage slot 11] = "0x + [alpha(32chars)] + [beta(32chars)]"
- *
- * @param marketAddress - Deployed address of a PrecogMarketV7 contract
- */
-async function getMarketV7Alpha(marketAddress: string): Promise<number>{
-    const alphaBetaSlot = 11;
-    const rawValue = await ethers.provider.getStorage(marketAddress, alphaBetaSlot);
-    const alphaInt128 = BigInt(rawValue.slice(0, 34));
-    return fromInt128toNumber(alphaInt128);
-}

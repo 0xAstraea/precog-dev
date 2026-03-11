@@ -24,8 +24,7 @@ export const Footer = () => {
                         <div>
                             <div className="btn btn-primary btn-sm font-normal gap-1 cursor-auto">
                                 <MegaphoneIcon className="h-4 w-4"/>
-                                <a target="_blank" href="https://core.precog.market/">Precog Core</a>
-                            </div>
+                                <a target="_blank" rel="noopener noreferrer" href="https://core.precog.markets/">Precog Core</a>                            </div>
                         </div>
                         {isLocalNetwork && (
                             <>

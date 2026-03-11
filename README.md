@@ -2,11 +2,13 @@
 This repository contains all smart contracts for the Precog forecasting protocol ([**Precog Markets**](https://precog.market/)).
 <hr/>
 
-#### Prediction Markets and LMSR theory:
+#### Prediction Markets and LMSR & LS-LMSR theory:
 - [Cultivate Labs: Types of Prediction Markets](https://www.cultivatelabs.com/crowdsourced-forecasting-guide/what-are-the-different-types-of-prediction-markets)
-- [Precog: Interactive LS-LMSR Simulator](https://core.precog.market/simulator)
+- [Precog: Interactive LS-LMSR Simulator](https://core.precog.markets/simulator)
 - [Research Corner: Gates Building Prediction Market](https://www.cs.utexas.edu/news/2012/research-corner-gates-building-prediction-market)
 - [Augur: LMSR and LS-LMSR](https://augur.mystrikingly.com/blog/augur-s-automated-market-maker-the-ls-lmsr)
+- [Precog: Liquidity Sensitive LMSR](./LS-LMSR.md)
+- [Precog: LS-LMSR Max loss proof](./packages/hardhat/logs/Precog_LS-LMSR_Max-Loss.pdf)
 
 ## Repository Structure
 - [Contracts Implementations](/packages/hardhat/contracts)
@@ -16,15 +18,15 @@ This repository contains all smart contracts for the Precog forecasting protocol
 <hr/>
 
 ## Mainnet Latest Deployments (Base)
-- **PrecogMaster**: [0x1eB90323aE74E5FBc3241c1D074cFd0b117d7e8E](https://basescan.org/address/0x1eB90323aE74E5FBc3241c1D074cFd0b117d7e8E)
-- **PrecogMarket**: [0xAac4F52016bc3A97D0d841A90f51fA1d7C2BB52b](https://basescan.org/address/0xAac4F52016bc3A97D0d841A90f51fA1d7C2BB52b) (Recipe for all markets)
+- **PrecogMaster**: [0x00000000000c109080dfa976923384b97165a57a](https://basescan.org/address/0x00000000000c109080dfa976923384b97165a57a)
+- **PrecogMarket**: [0x44769bE6853918e939281b2f669f9a58608Cb55B](https://basescan.org/address/0x44769bE6853918e939281b2f669f9a58608Cb55B) (Recipe for all markets)
 - **PrecogRealityOracle**: [0xd7bE03206daFa4552ab58CD3CFC191426404C77D](https://basescan.org/address/0xd7bE03206daFa4552ab58CD3CFC191426404C77D) 
-> Precog app site: [**Precog Core**](https://core.precog.market/)
+> Precog app site: [**Precog Core**](https://core.precog.markets/)
 <hr/>
 
 ## Testnet Latest Deployments (Base Sepolia)
-- **PrecogMasterV7**: [0x5fEa67Ef543615Bf8A6141AD63095e74c94Af1C4](https://sepolia.basescan.org/address/0x5fEa67Ef543615Bf8A6141AD63095e74c94Af1C4)
-- **PrecogMarketV7**: [0xCA1Ef8240D50c797Fee174a082dF5B47aFB328AE](https://sepolia.basescan.org/address/0xCA1Ef8240D50c797Fee174a082dF5B47aFB328AE) (Recipe for all markets)
+- **PrecogMasterV8**: [0x61ec71F1Fd37ecc20d695E83F3D68e82bEfe8443](https://sepolia.basescan.org/address/0x61ec71F1Fd37ecc20d695E83F3D68e82bEfe8443)
+- **PrecogMarketV8**: [0xfB4CD4779980896893B1855ad5A89E3ACCA7fc87](https://sepolia.basescan.org/address/0xfB4CD4779980896893B1855ad5A89E3ACCA7fc87) (Recipe for all markets)
 - **PrecogRealityOracleV2**: [0xbd8B7cb4924aAdf579b6Dbd77CA6cF6e56029f37](https://sepolia.basescan.org/address/0xbd8B7cb4924aAdf579b6Dbd77CA6cF6e56029f37)
 > Precog app site: [**Precog Core Staging**](https://staging-core.precog.market/) 
 <hr/>
@@ -63,3 +65,10 @@ This repository contains all smart contracts for the Precog forecasting protocol
 This project used the Scaffold-ETH-2 project as template. 
 Visit the [Docs](https://docs.scaffoldeth.io) to find useful scripts and guides:
 - ️ Built using NextJS, RainbowKit, Hardhat, Wagmi and Viem.
+<hr/>
+
+## License
+Precog Dev is licensed under the Business Source License 1.1 (BUSL-1.1), see [BUSL_LICENSE](./licences/BUSL_LICENSE), and the MIT License (MIT), see [MIT_LICENSE](./licences/MIT_LICENSE).
+
+Each file in the Precog Dev repository states the applicable license type in the header.
+<hr/>

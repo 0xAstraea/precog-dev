@@ -23,3 +23,9 @@ build
 
 # cli
 dist
+
+# service worker
+sw.js
+sw.js.map
+workbox-*.js
+workbox-*.map
