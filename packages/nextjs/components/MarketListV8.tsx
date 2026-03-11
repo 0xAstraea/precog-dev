@@ -105,7 +105,11 @@ function MarketItemV8({
                 <div className="break-all">
                   <span className="font-bold text-base-content/70 inline-block">Image URL:</span>{" "}
                   <a
-                    href={market.imageURL}
+                    href={
+                      market.imageURL?.startsWith('ipfs://')
+                        ? `https://ipfs.io/ipfs/${market.imageURL.slice(7)}`
+                        : market.imageURL
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 hover:underline break-all"
