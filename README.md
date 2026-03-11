@@ -1,5 +1,5 @@
 # Precog Dev
-This repository contains all smart contracts for the Precog forecasting protocol ([**Precog Markets**](https://precog.market/)).
+This repository contains all smart contracts for the Precog forecasting protocol ([**Precog Markets**](https://precog.markets/)).
 <hr/>
 
 #### Prediction Markets and LMSR & LS-LMSR theory:
@@ -14,7 +14,7 @@ This repository contains all smart contracts for the Precog forecasting protocol
 - [Contracts Implementations](/packages/hardhat/contracts)
 - [Test Implementations](/packages/hardhat/test)
 - [Deploy and Helpers](/packages/hardhat/scripts)
-> Precog Dev site: [**Precog Dev**](https://dev.precog.market/) (here the deployed version of this repo)
+> Precog Dev site: [**Precog Dev**](https://dev.precog.markets/) (here the deployed version of this repo)
 <hr/>
 
 ## Mainnet Latest Deployments (Base)
@@ -28,7 +28,7 @@ This repository contains all smart contracts for the Precog forecasting protocol
 - **PrecogMasterV8**: [0x61ec71F1Fd37ecc20d695E83F3D68e82bEfe8443](https://sepolia.basescan.org/address/0x61ec71F1Fd37ecc20d695E83F3D68e82bEfe8443)
 - **PrecogMarketV8**: [0xfB4CD4779980896893B1855ad5A89E3ACCA7fc87](https://sepolia.basescan.org/address/0xfB4CD4779980896893B1855ad5A89E3ACCA7fc87) (Recipe for all markets)
 - **PrecogRealityOracleV2**: [0xbd8B7cb4924aAdf579b6Dbd77CA6cF6e56029f37](https://sepolia.basescan.org/address/0xbd8B7cb4924aAdf579b6Dbd77CA6cF6e56029f37)
-> Precog app site: [**Precog Core Staging**](https://staging-core.precog.market/) 
+> Precog app site: [**Precog Core Staging**](https://staging-core.precog.markets/) 
 <hr/>
 
 ## Utility commands
