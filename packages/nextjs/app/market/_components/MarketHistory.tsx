@@ -33,7 +33,7 @@ export const MarketHistory = ({address}: { address: Address }) => {
             try {
                 // Only for debug
                 // console.log("Precog tracker data requested...");
-                const tracker_api_url = 'https://tracker.precog.market/api/v1/market-trades/';
+                const tracker_api_url = 'https://tracker.precog.markets/api/v1/market-trades/';
                 const api_url = `${tracker_api_url}?chain_id=${chain_id}&master_market_id=${Number(marketId)}`;
                 const response = await fetch(api_url, {
                     method: 'GET',
