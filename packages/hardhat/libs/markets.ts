@@ -1,3 +1,10 @@
+/**
+ * Prediction Market helpers libs for fast calculations.
+ *
+ * @author Marto (https://github.com/0xMarto)
+ * @dev Feel free to leave any code improvements (DMs are open @0xMarto)
+ */
+
 export class LMSR {
   outcomes: string[];
   b: number;
@@ -10,7 +17,6 @@ export class LMSR {
     for (const o of outcomes) this.q[o] = 0;
   }
 
-  // LMSR cost function
   cost(q: Record<string, number> = this.q): number {
     const sumExp = this.outcomes.reduce(
       (sum, o) => sum + Math.exp(q[o] / this.b),
@@ -28,7 +34,6 @@ export class LMSR {
     return result;
   }
 
-  // Buy deltaQ shares of a given outcome
   buy(outcome: string, deltaQ: number): number {
     const oldCost = this.cost();
     this.q[outcome] += deltaQ;
@@ -42,7 +47,6 @@ export class LMSR {
     return this.cost(tempQ) - this.cost(this.q);
   }
 
-  // Get share balances
   getBalances() {
     return { ...this.q };
   }
@@ -111,32 +115,36 @@ export class LMSR {
     return low;
   }
 
-  // Returns the maximum loss the market maker can incur
   maxLoss(): number {
     return this.b * Math.log(this.outcomes.length);
   }
 }
 
 export class LSLMSR {
-  outcomes: string[];
-  alpha: number;
-  q: Record<string, number>;
-  initialShares: number;
-  initialCost: number;
+  outcomes: string[];  // Init parameter. e.g.: ["A","B","C"]
+  alpha: number;  // Init parameter. e.g.: 0.0182
+  initialShares: number;  // Init parameter. e.g.: 3000
+  sellFee: number;   // Init parameter. e.g.: 0.01
+  q: Record<string, number>;  // State variable. e.g.: {"A": 3000,"B":3000,"C":3000}
+  initialCost: number;  //  State variable. e.g.: 3180
+  collectedFees: number;  // Total collected fees. e.g: 10.1
 
-  constructor(outcomes: string[], alpha: number, initialShares = 0) {
+  constructor(outcomes: string[], alpha: number, initialShares = 0, sellFee = 0) {
     this.outcomes = outcomes;
     this.alpha = alpha;
-    this.q = {};
     this.initialShares = initialShares;
+    this.sellFee = sellFee;
+    this.q = {};
     for (const o of outcomes) this.q[o] = this.initialShares;
     this.initialCost = this.cost();
+    this.collectedFees = 0;
   }
 
-  static from_state(outcomesBalances: Record<string, number>, alpha: number) {
-    // Note: Using this function to create the market makes `maxLoss` function not accurate
+  static fromState(outcomesBalances: Record<string, number>, alpha: number): LSLMSR {
+    // Note: Using this function to create the market makes `maxLoss` & `collectedFees` not accurate
     const outcomes = Object.keys(outcomesBalances);
-    const market = new LSLMSR(outcomes, alpha, 0);
+    const initialShares = Math.min(...Object.values(outcomesBalances)); // Using lower shares (could be wrong)
+    const market = new LSLMSR(outcomes, alpha, initialShares);
     market.q = outcomesBalances;
     return market
   }
@@ -165,7 +173,7 @@ export class LSLMSR {
     const oldCost = this.cost();
     this.q[outcome] += deltaQ;
     const newCost = this.cost();
-    return newCost - oldCost;
+    return Math.abs(newCost - oldCost);
   }
 
   buy(outcome: string, shares: number): number {
@@ -173,13 +181,19 @@ export class LSLMSR {
   }
 
   sell(outcome: string, shares: number): number {
-    return this.trade(outcome, -Math.abs(shares));
+    const tradeReturn = this.trade(outcome, -Math.abs(shares));
+    const tradeFee = tradeReturn * this.sellFee;
+    this.collectedFees += tradeFee;
+    return tradeReturn - tradeFee
   }
 
   tradeCost(outcome: string, deltaQ: number): number {
     const tempQ = { ...this.q };
     tempQ[outcome] += deltaQ;
-    return this.cost(tempQ) - this.cost(this.q);
+    const tradeCost = Math.abs(this.cost(tempQ) - this.cost(this.q));
+    let tradeFee = 0
+    if (deltaQ < 0) tradeFee = tradeCost * this.sellFee;
+    return tradeCost - tradeFee;
   }
 
   getBalances(): Record<string, number> {
@@ -252,85 +266,17 @@ export class LSLMSR {
   }
 
   maxLoss(): number {
-    // Get the outcome with the current higher share balance
-    const sortedOutcomes = Object.entries(this.q).sort(([, a], [, b]) => b - a);
-    const maxOutcome = sortedOutcomes[0][0];  // [first outcome][key value]
+    // Theoretical calculation based on LS-LMSR formula (maxLoss = overround * initialShares)
+    const n = this.outcomes.length;
+    const overround = this.alpha * (n * Math.log(n))
+    return this.initialShares * overround;
+  }
 
-    // Calculate max extra shares to be bought and extra collected collateral
-    const extraShares = Math.floor(this.maxSharesFromPrice(maxOutcome, 0.999));
-    const extraCollectedCollateral = this.tradeCost(maxOutcome, extraShares);
-
-    // Calculate max outcome balance and max redeemable payout
-    const maxOutcomeBalance = this.q[maxOutcome] + extraShares;
-    const maxPayout = maxOutcomeBalance - this.initialShares;
-
-    // Calculate collected collateral and max collateral to be collected
-    const collectedCollateral = this.cost() - this.initialCost;
-    const maxCollectedCollateral = collectedCollateral + extraCollectedCollateral;
-
-    // Calculate max loss
-    const maxLoss = Math.min(maxCollectedCollateral - maxPayout, 0);
-    return Math.abs(maxLoss);
+  addLiquidity(value: number) {
+    // Theoretical calculation based on LS-LMSR formula
+    const k = value / this.cost();  // Added liquidity ratio (k)
+    for (const outcome in this.outcomes) {
+      this.buy(outcome, this.q[outcome] * k); // Buy based on already minted balance times k
+    }
   }
 }
-
-
-// *******************************************************
-// * Quick script example to test market implementations *
-// *******************************************************
-
-// // Market initialization parameters
-// const initialShares = 2000;
-// const outcomes = ["A", "B", "C", "D"];
-// const alpha = 0.01;
-// const beta = 80;
-//
-// // Liquidity Sensitive LMSR Market example
-// const m1 = new LSLMSR(outcomes, alpha, initialShares);
-// console.log('Market LS-LMSR');
-// console.log(`Outcomes: ${m1.outcomes} | b: ${m1.b()} | alpha: ${m1.alpha}`);
-// console.log('Balances:', m1.getBalances());
-// console.log('Max Loss:', m1.maxLoss());
-// console.log('Prices:', m1.prices());
-//
-// // Traditional LMSR Market example
-// const m2 = new LMSR(outcomes, beta);
-// console.log('Market LMSR');
-// console.log(`Outcomes: ${m2.outcomes} | b: ${m2.b}`);
-// console.log('Balances:', m2.getBalances());
-// console.log('Max Loss:', m2.maxLoss());
-// console.log('Prices:', m2.prices());
-//
-// // Execute some random N trades
-// const N = 10;
-// const minAmount = 1
-// const maxAmount = initialShares / 2
-// console.log(`> Executing ${N} random trades (outcomes: ${outcomes})...`);
-// for (let i = 0; i < N; i++) {
-//   const randomOutcome = outcomes[Math.floor(Math.random() * outcomes.length)];
-//   const randomAmount = Math.floor(Math.random() * maxAmount) + minAmount;
-//   if (N < 100) {
-//     console.log(`> Executing trade... [BUY ${randomAmount} shares of ${randomOutcome}]`);
-//   }
-//   m1.buy(randomOutcome, randomAmount);
-//   m2.buy(randomOutcome, randomAmount);
-// }
-//
-// // Execute evenly distributed trades
-// const tradeAmount = 100
-// console.log(`> Executing evenly distributed trades (amount: ${tradeAmount})...`);
-// outcomes.forEach(outcome => m1.buy(outcome, tradeAmount));
-//
-// // Show final state of LS-LMSR market
-// console.log('Market LS-LMSR');
-// console.log(`Outcomes: ${m1.outcomes} | b: ${m1.b()} | alpha: ${m1.alpha}`);
-// console.log('Balances:', m1.getBalances());
-// console.log('Max Loss:', m1.maxLoss());
-// console.log('Prices:', m1.prices());
-//
-// // Show final state of a LMSR market
-// console.log('Market LMSR');
-// console.log(`Outcomes: ${m2.outcomes} | b: ${m2.b}`);
-// console.log('Balances:', m2.getBalances());
-// console.log('Max Loss:', m2.maxLoss());
-// console.log('Prices:', m2.prices());

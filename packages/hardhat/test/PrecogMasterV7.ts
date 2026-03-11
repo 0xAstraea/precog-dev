@@ -2,6 +2,8 @@ import {expect} from "chai";
 import {ethers} from "hardhat";
 import {PrecogToken, PrecogMasterV7, PrecogMarketV7, FakeDai} from "../typechain-types";
 import {HardhatEthersSigner} from "@nomicfoundation/hardhat-ethers/signers";
+import {LSLMSR} from "../libs/markets";
+import {fromInt128toNumber, fromNumberToInt128, getCurrentBlockTimestamp} from "../libs/helpers"
 
 describe("Precog Master V7", function () {
     const detailsEnabled: boolean = process.env.TEST_DETAILS === 'true';
@@ -13,6 +15,7 @@ describe("Precog Master V7", function () {
     let caller: HardhatEthersSigner;
     let marketCreator: HardhatEthersSigner;
     let dai: FakeDai;
+    let localMarket: LSLMSR;
 
     beforeEach(async function () {
         [owner, user, caller, marketCreator] = await ethers.getSigners();
@@ -345,7 +348,7 @@ describe("Precog Master V7", function () {
             const outcome: number = 1;
             const sharesAmount: bigint = fromNumberToInt128(shares);
 
-            // Get current market price and calculate max token in
+            // Get the current market price and calculate max token in
             const buyPriceInt128: bigint = await master.marketBuyPrice(marketId, outcome, sharesAmount);
             const buyCost: number = fromInt128toNumber(buyPriceInt128);
             const maxTokenIn: number = buyCost * 1.001  // Add 0.1% of slippage
@@ -359,7 +362,7 @@ describe("Precog Master V7", function () {
                 console.log(`\t| Expected -> buyPrice: ${buyCostPerShare}, buyCost: ${buyCost} PRE`);
             }
 
-            // Send BUY call as random user
+            // Send BUY call as a random user
             await master.connect(user).marketBuy(marketId, outcome, sharesAmount, maxAmountIn);
 
             const marketSharesInfo: any[] = await master.marketSharesInfo(marketId);
@@ -386,7 +389,7 @@ describe("Precog Master V7", function () {
             const outcome: number = 2;
             const sharesAmount: bigint = fromNumberToInt128(shares);
 
-            // Get current market price and calculate max token in
+            // Get the current market price and calculate max token in
             const buyPriceInt128: bigint = await master.marketBuyPrice(marketId, outcome, sharesAmount);
             const buyCost: number = fromInt128toNumber(buyPriceInt128);
             const maxTokenIn: number = buyCost * 1.001  // Add 0.1% of slippage
@@ -400,7 +403,7 @@ describe("Precog Master V7", function () {
                 console.log(`\t| Expected -> buyPrice: ${buyCostPerShare}, buyCost: ${buyCost} PRE`);
             }
 
-            // Send BUY call as random user
+            // Send BUY call as a random user
             await master.connect(user).marketBuy(marketId, outcome, sharesAmount, maxAmountIn);
 
             const marketSharesInfo: any[] = await master.marketSharesInfo(marketId);
@@ -427,7 +430,7 @@ describe("Precog Master V7", function () {
             const outcome: number = 1;
             const sharesAmount: bigint = fromNumberToInt128(shares);
 
-            // Get current market price and calculate min token return
+            // Get the current market price and calculate min token return
             const sellPriceInt128: bigint = await master.marketSellPrice(marketId, outcome, sharesAmount);
             const sellReturn: number = fromInt128toNumber(sellPriceInt128);
             const minTokenOut: number = sellReturn * 0.999  // Add 0.1% of slippage
@@ -441,7 +444,7 @@ describe("Precog Master V7", function () {
                 console.log(`\t| Expected -> sellPrice: ${returnPerShare}, sellReturn: ${sellReturn} PRE`);
             }
 
-            // Send SELL call as random user
+            // Send SELL call as a random user
             await master.connect(user).marketSell(marketId, outcome, sharesAmount, minAmountOut);
 
             const marketSharesInfo: any[] = await master.marketSharesInfo(marketId);
@@ -468,7 +471,7 @@ describe("Precog Master V7", function () {
             const outcome: number = 2;
             const sharesAmount: bigint = fromNumberToInt128(shares);
 
-            // Get current market price/token cost
+            // Get the current market price/token cost
             const sellPriceInt128: bigint = await master.marketSellPrice(marketId, outcome, sharesAmount);
             const sellReturn: number = fromInt128toNumber(sellPriceInt128);
             const minTokenOut: number = sellReturn * 0.999  // Add 0.1% of slippage
@@ -507,7 +510,7 @@ describe("Precog Master V7", function () {
             const outcome: number = 1;
             const sharesAmount: bigint = fromNumberToInt128(shares);
 
-            // Get current market price/token cost
+            // Get the current market price/token cost
             const buyPriceInt128: bigint = await master.marketBuyPrice(marketId, outcome, sharesAmount);
             const buyCost: number = fromInt128toNumber(buyPriceInt128);
             const maxTokenIn: number = buyCost * 1.001  // Add 0.1% of slippage
@@ -651,7 +654,7 @@ describe("Precog Master V7", function () {
     })
 
     describe("Custom Market functions", function () {
-        it("| Market Creator accounts can create a custom market (with DAI)", async function () {
+        it("| Market Creator accounts can create a custom market with DAI", async function () {
             // Approve PrecogMaster to use MarketCreator DAIs
             await dai.connect(marketCreator).approve(
                 await master.getAddress(),
@@ -671,6 +674,11 @@ describe("Precog Master V7", function () {
             const collateralToken: string = await dai.getAddress();
             const collateralFunder: string = marketCreator.address;
             const marketOracle: string = owner.address;
+
+            // Initialize local market to verify solidity calculations
+            const alpha = (overround / 10000) / (outcomes.length * Math.log(outcomes.length));
+            localMarket = new LSLMSR(outcomes, alpha, 1000);
+
             await master.connect(marketCreator).createCustomMarket(
                 name, description, category, outcomes, startTimestamp, endTimestamp, creator,
                 funding, overround, collateralToken, collateralFunder, marketOracle
@@ -690,6 +698,9 @@ describe("Precog Master V7", function () {
             const marketCollateralSymbol = createdMarketCollateralInfo[2];
             const marketCollateralDecimals = createdMarketCollateralInfo[3];
 
+            // Get Buy and Sell prices indexed by outcome (outcome index zero is not valid)
+            const createdMarketPrices = await master.marketPrices(createdMarketId);
+
             if (detailsEnabled) {
                 console.log(`\t| Market Address: ${marketAddress}`);
                 console.log(`\t| Market -> name: ${marketName}, creator: ${marketCreatorAddress}`);
@@ -705,6 +716,17 @@ describe("Precog Master V7", function () {
             expect(marketCreatorAddress).to.equal(creator);
             expect(marketCollateralAddress).to.equal(collateralToken);
             expect(marketCollateralSymbol).to.equal(await dai.symbol());
+
+            // Verify initial prices against local calculations
+            const localPrices = localMarket.prices();
+            const tolerance = 0.000000001;
+            const buyPrices = createdMarketPrices[0];
+            for (let i = 1; i < buyPrices.length; i++) {
+                const outcomePrice = Number(ethers.formatEther(buyPrices[1]));
+                const localOutcomePrice = localPrices[Object.keys(localPrices)[i-1]];
+                const priceDelta = Math.abs(outcomePrice - localOutcomePrice);
+                expect(priceDelta).be.lessThanOrEqual(tolerance);
+            }
         })
 
         it("| Accounts can BUY shares with DAI on a custom market", async function () {
@@ -719,7 +741,7 @@ describe("Precog Master V7", function () {
             const prices: bigint[][] = await master.marketPrices(marketId);  // prices helper (only v7)
             const buyPrices = prices[0].map(value => Number(ethers.formatEther(value)));
 
-            // Get current market price and calculate max token in
+            // Get the current market price and calculate max token in
             const buyPriceInt128: bigint = await master.marketBuyPrice(marketId, outcome, sharesAmount);
             const buyCost: number = fromInt128toNumber(buyPriceInt128);
             const maxTokenIn: number = buyCost * 1.001  // Add 0.1% of slippage
@@ -738,7 +760,7 @@ describe("Precog Master V7", function () {
                 console.log(`\t| Expected -> buyPrice: ${buyCostPerShare}, buyCost: ${buyCost} DAI`);
             }
 
-            // Send BUY call as random user
+            // Send BUY call as a random user
             await master.connect(user).marketBuy(marketId, outcome, sharesAmount, maxAmountIn);
 
             const marketSharesInfo: any[] = await master.marketSharesInfo(marketId);
@@ -761,9 +783,13 @@ describe("Precog Master V7", function () {
             expect(totalBuys).be.equal(1);
             expect(totalShares).be.equal(3001);
             expect(allowanceAfter).be.equal(0);
+
+            // Register trade on local market
+            const localOutcome = localMarket.outcomes[0];
+            localMarket.buy(localOutcome, shares);
         })
 
-        it("| Accounts can SELL shares on a custom market (with DAI)", async function () {
+        it("| Accounts can SELL shares on a custom market with DAI", async function () {
             if (detailsEnabled) console.log("");
             const shares: number = 1
             const marketId: number = 1;
@@ -774,7 +800,7 @@ describe("Precog Master V7", function () {
             const prices: bigint[][] = await master.marketPrices(marketId);  // prices helper (only v7)
             const sellPrices = prices[1].map(value => Number(ethers.formatEther(value)));
 
-            // Get current market price and calculate min token return
+            // Get the current market price and calculate min token return
             const sellPriceInt128: bigint = await master.marketSellPrice(marketId, outcome, sharesAmount);
             const sellReturn: number = fromInt128toNumber(sellPriceInt128);
             const minTokenOut: number = sellReturn * 0.999  // Add 0.1% of slippage
@@ -788,7 +814,7 @@ describe("Precog Master V7", function () {
                 console.log(`\t| Expected -> sellPrice: ${returnPerShare}, sellReturn: ${sellReturn} DAI`);
             }
 
-            // Send SELL call as random user
+            // Send SELL call as a random user
             await master.connect(user).marketSell(marketId, outcome, sharesAmount, minAmountOut);
 
             const marketSharesInfo: any[] = await master.marketSharesInfo(marketId);
@@ -808,20 +834,88 @@ describe("Precog Master V7", function () {
             expect(Number(tokenReturn)).be.greaterThanOrEqual(sellReturn);
             expect(totalSells).be.equal(1);
             expect(totalShares).be.equal(3000);
+
+            // Register trade on local market
+            const localOutcome = localMarket.outcomes[0];
+            localMarket.sell(localOutcome, shares);
+        })
+
+        it("| Verify DAI max-loss calculations on a custom market", async function () {
+            // To reach theoretical max loss on the chain, we simulate the worst scenario (an obvious market).
+            if (detailsEnabled) console.log("");
+            const outcome: number = 1;
+            const marketId: number = 1;
+            const targetPrice = 0.9999;
+
+            // Calculate the number of shares to be bought to reach close to 1 (marginal share price)
+            const firstOutcome = localMarket.outcomes[outcome - 1];
+            const maxShares = Math.ceil(localMarket.maxSharesFromPrice(firstOutcome, targetPrice));
+
+            // Get the current market price and calculate max token in
+            const maxSharesAmount: bigint = fromNumberToInt128(maxShares);
+            const buyPriceInt128: bigint = await master.marketBuyPrice(marketId, outcome, maxSharesAmount);
+            const buyCost: number = fromInt128toNumber(buyPriceInt128);
+            const maxTokenIn: number = buyCost * 1.001  // Add 0.1% of slippage
+            const maxAmountIn: bigint = ethers.parseEther(maxTokenIn.toString());
+
+            // Mint needed DAI to user address
+            await dai.mint(user.address, maxAmountIn);
+
+            // Give allowance of DAI to PrecogMaster
+            const masterAddress: string = await master.getAddress();
+            await dai.connect(user).approve(masterAddress, maxAmountIn);
+
+            const customMarket: any[] = await master.markets(marketId);
+            const marketAddress = customMarket[7];
+            const marketCollateralBefore: bigint = await dai.balanceOf(marketAddress);
+            const sharesInfoBefore: any[] = await master.marketSharesInfo(marketId);
+            const sharesBalancesBefore: any[] = sharesInfoBefore[1].map((value: bigint) => fromInt128toNumber(value));
+
+            if (detailsEnabled) {
+                console.log(`\t| Buying: outcome=${outcome}, amount=${maxShares}, maxIn=${maxTokenIn} DAI`);
+                console.log(`\t| Expected buy cost: ${buyCost} DAI`);
+                console.log(`\t| Market (before max buy):`);
+                console.log(`\t|   Shares Balances: ${sharesBalancesBefore}`);
+                console.log(`\t|   Collateral: ${ethers.formatEther(marketCollateralBefore)} DAI`);
+            }
+
+            // Send BUY call as a random user
+            await master.connect(user).marketBuy(marketId, outcome, maxSharesAmount, maxAmountIn);
+            if (detailsEnabled) {
+                console.log(`\t| > Max buy executed!`);
+            }
+
+            // Get market state after the trade
+            const sharesInfoAfter: any[] = await master.marketSharesInfo(marketId);
+            const sharesBalancesAfter: any[] = sharesInfoAfter[1].map((value: bigint) => fromInt128toNumber(value));
+            const collateralAfter: bigint = await dai.balanceOf(marketAddress);
+            const marketCollateralAfter: number = Number(ethers.formatEther(collateralAfter));
+            const marketMaxPayout: number = sharesBalancesAfter[outcome];
+            const marketMaxLoss = Math.abs(marketCollateralAfter - marketMaxPayout);
+
+            if (detailsEnabled) {
+                console.log(`\t| Market (after max buy):`);
+                console.log(`\t|   Shares Balances: ${sharesBalancesAfter}`);
+                console.log(`\t|   Collateral: ${marketCollateralAfter} DAI`);
+                console.log(`\t|   Outcome Max Payout: ${marketMaxPayout} DAI`);
+                console.log(`\t|   Max Loss: ${marketMaxLoss} DAI`);
+            }
+
+            // Register trade on local market
+            localMarket.buy(firstOutcome, maxShares);
+
+            const maxLoss = localMarket.maxLoss();
+            const balances = localMarket.getBalances();
+            if (detailsEnabled) {
+                console.log(`\t| Theoretical local market:`);
+                console.log(`\t|   Balances: ${Object.values(balances)}`);
+                console.log(`\t|   Max Loss: ${maxLoss}`);
+            }
+
+            // Calculate empirical delta against on chain market
+            const tolerance: number = 0.005;
+            const maxLossDelta: number = Math.abs(maxLoss - marketMaxLoss);
+            expect(maxLossDelta).be.lessThanOrEqual(tolerance);
         })
     })
 })
-
-function fromInt128toNumber(a: bigint): number {
-    return Number(BigInt(a)) / Number((BigInt(2) ** BigInt(64)));
-}
-
-function fromNumberToInt128(a: number): bigint {
-    return BigInt(a) * (BigInt(2) ** BigInt(64));
-}
-
-async function getCurrentBlockTimestamp(): Promise<number> {
-    const blockNumber: number = await ethers.provider.getBlockNumber();
-    const block = await ethers.provider.getBlock(blockNumber);
-    return block ? block.timestamp : 0;
-}

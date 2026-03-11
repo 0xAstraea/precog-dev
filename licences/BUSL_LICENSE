@@ -1,0 +1,54 @@
+Business Source License 1.1
+
+Parameters
+
+Licensor: Precog Markets LLC
+
+Licensed Work: Precog Protocol (including LS-LMSR implementation)
+
+Change Date: February 26, 2030 (4 years from today)
+
+Change License: MIT License
+
+Additional Use Grant: Production use is permitted for deployments via official Precog Factory smart contracts on authorized networks, as detailed in Section 2.
+
+
+1. Terms
+
+Pursuant to Section 1, the Licensor hereby grants you the right to copy, modify, create derivative works, redistribute, and make non-production use of the Licensed Work.
+
+Production Use is prohibited under this License unless:
+- 1. It is expressly permitted by the Additional Use Grant (Section 2); or
+- 2. The Change Date has passed.
+
+Effective on the Change Date, the Licensor hereby grants you rights under the terms of the Change License (MIT), and the rights granted in the paragraph above terminate.
+
+Any use of the Licensed Work in violation of this License will automatically terminate your rights under this License.
+
+This License does not grant you any right in any trademark or logo of Licensor.
+
+
+2. Additional Use Grant (AUG)
+
+Pursuant to Section 1, the Licensor hereby grants the following additional rights for Production Use during the BUSL period, subject to these strict conditions:
+
+A. Ecosystem & White Label Grant: You may use the Licensed Work to deploy and monetize prediction markets only on official network deployments authorized by Precog Markets LLC.
+- 1. Official Factory Requirement: All markets must be deployed directly through the official, non-modified Precog Factory smart contracts. Redeployment of the Factory or Core contracts to any network where Precog Markets LLC has not officially deployed is strictly prohibited.
+- 2. Attribution: Any user-facing interface or application utilizing the Licensed Work must conspicuously display the phrase "Powered by Precog" with a functional hyperlink to the official Precog website or repository.
+
+B. Competitive Use & Anti-Siphoning Restriction: This grant does not permit the use of the Licensed Work to launch, operate, or promote any protocol that:
+- 1. Competes with the Precog Protocol; or
+- 2. Implements "vampire" mechanisms designed to incentivize the migration of liquidity or users away from official Precog deployments.
+
+C. Non-Competitive Research & Academic Grant: Permission is granted for the use of the Licensed Work by academic institutions and independent researchers for non-commercial research and peer-reviewed publication. This does not include the right to deploy the code for public production use.
+
+
+3. Standard Notices
+
+TO THE EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSED WORK IS PROVIDED ON AN "AS IS" BASIS.
+LICENSOR HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS, EXPRESS OR IMPLIED, INCLUDING (WITHOUT LIMITATION) WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND TITLE.
+
+
+4. Governing Law and Jurisdiction
+This License shall be governed by and construed in accordance with the laws of the State of Wyoming, United States, without regard to conflict of law principles.
+Any legal action or proceeding arising under this License will be brought exclusively in the federal or state courts located in Wyoming, and the parties hereby irrevocably consent to the personal jurisdiction and venue therein.

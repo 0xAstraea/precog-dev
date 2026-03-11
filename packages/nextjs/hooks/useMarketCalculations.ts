@@ -1,6 +1,8 @@
 import { usePublicClient } from "wagmi";
 import { useQuery } from "@tanstack/react-query";
 import { useScaffoldContract } from "./scaffold-eth";
+import { ContractName } from "~~/utils/scaffold-eth/contract";
+import { getPrecogMasterContractKey, type PrecogMasterVersion } from "~~/utils/scaffold-eth/contractsData";
 import { fromInt128toNumber, fromNumberToInt128 } from "~~/utils/numbers";
 
 // =================================================================================================
@@ -18,14 +20,16 @@ export const useMarketBuyCalculations = (
   outcome: number,
   sharesToBuy: number,
   enabled = true,
+  version: PrecogMasterVersion = "v8",
 ) => {
   const publicClient = usePublicClient();
+  const masterContractName = getPrecogMasterContractKey(version) as ContractName;
   const { data: masterContract } = useScaffoldContract({
-    contractName: "PrecogMasterV7",
+    contractName: masterContractName,
   });
 
   return useQuery({
-    queryKey: ["marketBuyPrice", chainId, marketId, outcome, sharesToBuy],
+    queryKey: ["marketBuyPrice", version, chainId, marketId, outcome, sharesToBuy],
     queryFn: async () => {
       try {
         // Get current buy price for the requested shares
@@ -87,23 +91,40 @@ export const useMarketSellCalculations = (
   outcome: number,
   sharesToSell: number,
   enabled = true,
+  version: PrecogMasterVersion = "v8",
 ) => {
   const publicClient = usePublicClient();
+  const masterContractName = getPrecogMasterContractKey(version) as ContractName;
   const { data: masterContract } = useScaffoldContract({
-    contractName: "PrecogMasterV7",
+    contractName: masterContractName,
   });
 
   const { data: sharesInfo, isLoading: isSharesInfoLoading } = useMarketSharesInfo(
     marketId,
     publicClient,
     masterContract,
+    version,
     enabled && sharesToSell > 0,
   );
 
-  const { data: alpha, isLoading: isAlphaLoading } = useMarketAlpha(marketAddress, publicClient, enabled && sharesToSell > 0);
+  const { data: alpha, isLoading: isAlphaLoading } = useMarketAlpha(
+    marketId,
+    marketAddress,
+    publicClient,
+    masterContract,
+    version,
+    enabled && sharesToSell > 0,
+  );
+  const { data: sellFeeRate, isLoading: isSellFeeLoading } = useMarketSellFeeRate(
+    marketId,
+    publicClient,
+    masterContract,
+    version,
+    enabled && sharesToSell > 0,
+  );
 
   const query = useQuery({
-    queryKey: ["marketSellPrice", chainId, marketId, outcome, sharesToSell, sharesInfo, alpha],
+    queryKey: ["marketSellPrice", version, chainId, marketId, outcome, sharesToSell, sharesInfo, alpha, sellFeeRate],
     queryFn: async () => {
       try {
         // Get current sell price
@@ -126,10 +147,20 @@ export const useMarketSellCalculations = (
           -sharesToSell // Negative for sell
         );
 
+        let computedSellFeeRate = 0;
+        let sellFeeAmount = 0;
+        if (version === "v8" && sellFeeRate && sellFeeRate > 0 && sellFeeRate < 1) {
+          const grossAmount = collateralToReceive / (1 - sellFeeRate);
+          sellFeeAmount = Math.max(grossAmount - collateralToReceive, 0);
+          computedSellFeeRate = sellFeeRate;
+        }
+
         return {
-          collateralToReceive,
+          collateralToReceive: collateralToReceive,
           pricePerShare: collateralToReceive / sharesToSell,
-          futurePrice,
+          futurePrice: futurePrice,
+          sellFeeRate: computedSellFeeRate,
+          sellFeeAmount: sellFeeAmount,
           hasError: false,
           error: null,
         };
@@ -140,15 +171,16 @@ export const useMarketSellCalculations = (
           pricePerShare: 0,
           futurePrice: 0,
           futureBuyPrice: 0,
+          sellFeeRate: 0,
+          sellFeeAmount: 0,
           hasError: true,
           error: error instanceof Error ? error.message : "Failed to fetch sell price",
         };
       }
     },
-    enabled: enabled && !!masterContract && !!publicClient && sharesToSell > 0 && !!sharesInfo && !!alpha,
-  });
+    enabled: enabled && !!masterContract && !!publicClient && sharesToSell > 0 && !!sharesInfo && !!alpha && (version !== "v8" || sellFeeRate !== undefined), });
 
-  const isLoading = isSharesInfoLoading || isAlphaLoading || query.isLoading;
+  const isLoading = isSharesInfoLoading || isAlphaLoading || isSellFeeLoading || query.isLoading;
 
   return {
     ...query,
@@ -160,21 +192,50 @@ export const useMarketSellCalculations = (
 // DATA FETCHER HOOKS (reading from contract)
 // =================================================================================================
 
-const useMarketAlpha = (marketAddress: string, publicClient: any, enabled = true) => {
+const useMarketAlpha = (
+  marketId: number,
+  marketAddress: string,
+  publicClient: any,
+  masterContract: any,
+  version: PrecogMasterVersion,
+  enabled = true,
+) => {
   return useQuery({
-    queryKey: ["marketAlpha", marketAddress, publicClient?.chain.id],
-    queryFn: () => getMarketV7Alpha(marketAddress, publicClient),
-    enabled: enabled && !!publicClient,
+    queryKey: ["marketAlpha", version, marketId, marketAddress, publicClient?.chain.id],
+    queryFn: () => getMarketAlpha(marketId, marketAddress, publicClient, masterContract, version),
+    enabled: enabled && !!publicClient && (version === "v7" || !!masterContract),
     staleTime: Infinity,
     gcTime: Infinity,
   });
 };
 
-const useMarketSharesInfo = (marketId: number, publicClient: any, masterContract: any, enabled = true) => {
+const useMarketSharesInfo = (
+  marketId: number,
+  publicClient: any,
+  masterContract: any,
+  version: PrecogMasterVersion = "v8",
+  enabled = true,
+) => {
   return useQuery({
-    queryKey: ["marketSharesInfo", marketId, publicClient?.chain.id],
-    queryFn: () => getMarketSharesInfo(marketId, publicClient, masterContract),
+    queryKey: ["marketSharesInfo", version, marketId, publicClient?.chain.id],
+    queryFn: () => getMarketSharesInfo(marketId, publicClient, masterContract, version),
     enabled: enabled && !!publicClient && !!masterContract,
+  });
+};
+
+const useMarketSellFeeRate = (
+  marketId: number,
+  publicClient: any,
+  masterContract: any,
+  version: PrecogMasterVersion,
+  enabled = true,
+) => {
+  return useQuery({
+    queryKey: ["marketSellFeeRate", version, marketId, publicClient?.chain.id],
+    queryFn: () => getMarketSellFeeRate(marketId, publicClient, masterContract, version),
+    enabled: enabled && !!publicClient && (version === "v7" || !!masterContract),
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 };
 
@@ -187,6 +248,98 @@ async function getMarketV7Alpha(marketAddress: string, publicClient: any): Promi
   return fromInt128toNumber(alphaInt128);
 }
 
+async function getMarketV8Alpha(marketId: number, publicClient: any, masterContract: any): Promise<number> {
+  const setupInfo = await getMarketV8SetupInfo(marketId, publicClient, masterContract);
+  return fromInt128toNumber(setupInfo[1]);
+}
+
+async function getMarketV8SetupInfo(
+  marketId: number,
+  publicClient: any,
+  masterContract: any,
+): Promise<readonly [bigint, bigint, bigint, bigint, bigint]> {
+  return (await publicClient.readContract({
+    address: masterContract.address as `0x${string}`,
+    abi: masterContract.abi,
+    functionName: "marketSetupInfo",
+    args: [BigInt(marketId)],
+  })) as readonly [bigint, bigint, bigint, bigint, bigint];
+}
+
+/** Parsed V8 market setup info for display (initialShares, alpha, totalOutcomes, sellFeeFactor, initialCollateral) */
+export interface MarketSetupInfoV8 {
+  initialShares: number;
+  alpha: number;
+  totalOutcomes: number;
+  sellFeeFactor: number;
+  /** Raw value in token base units; format with token decimals (e.g. formatUnits) for display */
+  initialCollateral: bigint;
+  /** Derived: 1/sellFeeFactor, 0 if factor <= 0 */
+  sellFeeRate: number;
+}
+
+/**
+ * Fetches and parses PrecogMasterV8.marketSetupInfo(marketId) for display.
+ * V8 only; use for the "Market Setup" collapsible tab.
+ */
+export const useMarketSetupInfoV8 = (marketId: number, enabled: boolean) => {
+  const publicClient = usePublicClient();
+  const masterContractName = getPrecogMasterContractKey("v8") as ContractName;
+  const { data: masterContract } = useScaffoldContract({
+    contractName: masterContractName,
+  });
+
+  return useQuery({
+    queryKey: ["marketSetupInfoV8", marketId, publicClient?.chain?.id],
+    queryFn: async (): Promise<MarketSetupInfoV8> => {
+      if (!publicClient || !masterContract) throw new Error("Missing client or master contract");
+      const raw = await getMarketV8SetupInfo(marketId, publicClient, masterContract);
+      const initialShares = fromInt128toNumber(raw[0]);
+      const alpha = fromInt128toNumber(raw[1]);
+      const totalOutcomes = Number(raw[2]);
+      const sellFeeFactor = fromInt128toNumber(raw[3]);
+      const initialCollateral = raw[4];
+      const sellFeeRate = Number.isFinite(sellFeeFactor) && sellFeeFactor > 0 ? 1 / sellFeeFactor : 0;
+      return {
+        initialShares,
+        alpha,
+        totalOutcomes,
+        sellFeeFactor,
+        initialCollateral,
+        sellFeeRate,
+      };
+    },
+    enabled: enabled && !!publicClient && !!masterContract,
+    staleTime: 60_000,
+  });
+};
+
+async function getMarketSellFeeRate(
+  marketId: number,
+  publicClient: any,
+  masterContract: any,
+  version: PrecogMasterVersion,
+): Promise<number> {
+  if (version !== "v8") return 0;
+  const setupInfo = await getMarketV8SetupInfo(marketId, publicClient, masterContract);
+  const sellFeeFactor = fromInt128toNumber(setupInfo[3]);
+  if (!Number.isFinite(sellFeeFactor) || sellFeeFactor <= 0) return 0;
+  return 1 / sellFeeFactor;
+}
+
+async function getMarketAlpha(
+  marketId: number,
+  marketAddress: string,
+  publicClient: any,
+  masterContract: any,
+  version: PrecogMasterVersion,
+): Promise<number> {
+  if (version === "v8") {
+    return getMarketV8Alpha(marketId, publicClient, masterContract);
+  }
+  return getMarketV7Alpha(marketAddress, publicClient);
+}
+
 interface MarketSharesInfo {
   sharesBalances: number[];
 }
@@ -195,13 +348,19 @@ async function getMarketSharesInfo(
   marketId: number,
   publicClient: any,
   masterContract: any,
+  version: PrecogMasterVersion,
 ): Promise<MarketSharesInfo> {
-  const [, sharesBalances] = (await publicClient.readContract({
+  const rawInfo = (await publicClient.readContract({
     address: masterContract.address,
     abi: masterContract.abi,
     functionName: "marketSharesInfo",
     args: [BigInt(marketId)],
-  })) as [bigint, bigint[], bigint, bigint, bigint];
+  })) as readonly bigint[];
+
+  const sharesBalances =
+    version === "v8"
+      ? (rawInfo as readonly [bigint, readonly bigint[], bigint, bigint, bigint, bigint])[1]
+      : (rawInfo as readonly [bigint, readonly bigint[], bigint, bigint, bigint])[1];
 
   return {
     sharesBalances: sharesBalances.map(balance => fromInt128toNumber(balance)),

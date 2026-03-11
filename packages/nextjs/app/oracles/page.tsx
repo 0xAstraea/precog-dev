@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { usePublicClient, useWalletClient } from "wagmi";
-import { parseEther } from "viem";
+import { isAddress, parseEther, zeroAddress } from "viem";
+import type { Address } from "viem";
 import { getBlockExplorerAddressLink, notification } from "~~/utils/scaffold-eth";
 import { getContractsByNetwork } from "~~/utils/scaffold-eth/contractsData";
 import { ArrowTopRightOnSquareIcon, InformationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -48,6 +49,9 @@ const Oracle: NextPage = () => {
   const [answerers, setAnswerers] = useState("");
   const [bonds, setBonds] = useState("");
   const [answers, setAnswers] = useState("");
+
+  // Withdraw to EOA: token address (empty = ETH)
+  const [withdrawTokenAddress, setWithdrawTokenAddress] = useState("");
   const [openTooltip, setOpenTooltip] = useState<string | null>(null);
 
   // Close tooltip when clicking outside
@@ -365,7 +369,28 @@ const Oracle: NextPage = () => {
     }
   };
 
-  const handleWithdraw = async () => {
+  const handlePreFillClaimDefaults = () => {
+    let didFill = false;
+    if (!historyHashes.trim()) {
+      setHistoryHashes("0x0000000000000000000000000000000000000000000000000000000000000000");
+      didFill = true;
+    }
+    if (!answerers.trim()) {
+      setAnswerers("0xbd8B7cb4924aAdf579b6Dbd77CA6cF6e56029f37");
+      didFill = true;
+    }
+    if (!bonds.trim()) {
+      setBonds("1500000000000000");
+      didFill = true;
+    }
+    if (didFill) {
+      notification.success("Defaults pre-filled");
+    } else {
+      notification.info("Values are already filled");
+    }
+  };
+
+  const handleRealityWithdraw = async () => {
     if (!walletClient || !publicClient) {
       notification.error("Please connect your wallet");
       return;
@@ -385,6 +410,36 @@ const Oracle: NextPage = () => {
       notification.success("Withdrawal successful!");
     } catch (error: any) {
       const errorMessage = error?.shortMessage || error?.message || "Failed to withdraw";
+      notification.error(errorMessage);
+      console.error(error);
+    }
+  };
+
+  const handleWithdrawToEoa = async () => {
+    if (!walletClient || !publicClient) {
+      notification.error("Please connect your wallet");
+      return;
+    }
+
+    const trimmed = withdrawTokenAddress.trim();
+    if (trimmed && !isAddress(trimmed)) {
+      notification.error("Invalid token address");
+      return;
+    }
+    const token: Address = trimmed && isAddress(trimmed) ? (trimmed as Address) : zeroAddress;
+
+    try {
+      const { request } = await publicClient.simulateContract({
+        address: oracle_address,
+        abi: oracle_abi,
+        functionName: "withdraw",
+        args: [token],
+        account: walletClient.account,
+      });
+      await walletClient.writeContract(request);
+      notification.success("Withdrawal to EOA successful!");
+    } catch (error: any) {
+      const errorMessage = error?.shortMessage || error?.message || "Failed to withdraw to EOA";
       notification.error(errorMessage);
       console.error(error);
     }
@@ -706,11 +761,20 @@ const Oracle: NextPage = () => {
                       {activeTab === "claims" && (
                         <div className="gap-2 flex flex-col">
                           <h4 className="font-bold text-base-content/70 m-0">:: Claims & Withdrawals ::</h4>
-                          
+
                           {/* Claim Winnings Section */}
                           <div className="p-4 border border-dashed border-base-content/20 rounded-md flex flex-col gap-3">
-                            <h5 className="font-bold text-base-content/70 m-0">Claim Winnings</h5>
-                            
+                            <div className="flex items-center justify-between gap-2">
+                              <h5 className="font-bold text-base-content/70 m-0">Claim Winnings</h5>
+                              <button
+                                type="button"
+                                onClick={handlePreFillClaimDefaults}
+                                className="text-xs link link-hover text-base-content/60"
+                              >
+                                Pre-fill defaults
+                              </button>
+                            </div>
+
                             {/* Question ID */}
                             <div className="flex items-center gap-2">
                               <input
@@ -918,11 +982,33 @@ const Oracle: NextPage = () => {
                             </p>
                             <button
                               className="btn btn-accent btn-sm font-mono"
-                              onClick={handleWithdraw}
+                              onClick={handleRealityWithdraw}
                             >
                               WITHDRAW
                             </button>
                           </div>
+
+                          {/* Withdraw to EOA Section */}
+                          <div className="p-4 border border-dashed border-base-content/20 rounded-md flex flex-col gap-3">
+                            <h5 className="font-bold text-base-content/70 m-0">Withdraw from Oracle</h5>
+                            <p className="text-xs text-base-content/70">
+                              Withdraws any available balance from the oracle contract to your EOA.
+                            </p>
+                            <input
+                              type="text"
+                              placeholder="Token address (empty = ETH)"
+                              className="input input-bordered input-sm w-full font-mono"
+                              value={withdrawTokenAddress}
+                              onChange={e => setWithdrawTokenAddress(e.target.value)}
+                            />
+                            <button
+                              className="btn btn-accent btn-sm font-mono"
+                              onClick={handleWithdrawToEoa}
+                            >
+                              WITHDRAW
+                            </button>
+                          </div>
+
                         </div>
                       )}
 

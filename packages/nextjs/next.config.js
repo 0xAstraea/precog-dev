@@ -9,15 +9,13 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    swcMinify: true,
     typescript: {
         ignoreBuildErrors: process.env.NEXT_PUBLIC_IGNORE_BUILD_ERROR === "true",
     },
-    eslint: {
-        ignoreDuringBuilds: process.env.NEXT_PUBLIC_IGNORE_BUILD_ERROR === "true",
-    },
+    // Silence Turbopack warning when webpack config is present (e.g. from PWA plugin)
+    turbopack: {},
     webpack: config => {
-        config.resolve.fallback = {fs: false, net: false, tls: false};
+        config.resolve.fallback = { fs: false, net: false, tls: false };
         config.externals.push("pino-pretty", "lokijs", "encoding");
         return config;
     },

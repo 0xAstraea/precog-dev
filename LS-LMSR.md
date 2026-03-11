@@ -1,5 +1,6 @@
 LS-LMSR
-In the LMSR, b is a constant. But in the LS-LMSR, it is a function of the quantities traders have wagered on each security:
+
+In the LMSR, b is a constant. But in the LS-LMSR, it is a function of the quantities traders have wagered on each outcome:
 
     b(q) = alpha . Sum(qi)
 
@@ -7,10 +8,10 @@ At first glance, it appears that we have just shifted our problem from choosing 
 
     1 + alpha . n . log(n)
 
-We can interpret alpha as responsible for setting a market "vig" value — typically between 5 and 30 percent in real-world markets. 
+We can interpret alpha as responsible for setting a market "vig" value (overround) — typically between 5 and 30 percent in real-world markets. 
 Consequently, we can set:
 
-    alpha = 0.1 / n . log(n)
+    alpha = overround / n . log(n)
 
 This natural parameterization gives us a valuable guide in assessing what different values of alpha produce in the resulting market.
 
@@ -19,7 +20,7 @@ This small shift in how to set b---from a constant to an increasing value---crea
 
 1. Numerical Precision:
     
-    Numerical precision issues are encountered very quickly with the LMSR. The problems derive from the exponentiation in the LMSR which can make even reasonably large input values infeasible. This is particularly a concern for Augur, which uses a fixed-point computational system with a built-in precision limit.
+    Numerical precision issues are encountered very quickly with the LMSR. The problems derive from the exponentiation in the LMSR which can make even reasonably large input values infeasible. This is particularly a concern for EVM implementations, which uses a fixed-point computational system with a built-in precision limit.
 
     There is a trick that can be used to keep LMSR from overflowing, but the larger point is that it is non-trivial to implement LMSR in practice due to numerical problems and doubly so in a fixed-point context.
 
@@ -35,7 +36,11 @@ This small shift in how to set b---from a constant to an increasing value---crea
 
 3. Bounded Loss:
 
-   The LS-LMSR retains the bounded loss properties of the LMSR. In the LMSR this loss bound determines the maximum amount of liquidity in the market. But in the LS-LMSR, it only determines the initial amount of liquidity in the market—the maximum amount of liquidity when using the LS-LMSR is unbounded, because market participants are contributing to liquidity, too.
+   The LS-LMSR retains the bounded loss properties of the LMSR. 
+
+   In the LMSR this loss bound determines the maximum amount of liquidity in the market (`maxLoss = b . log(n)`). 
+   
+   But in the LS-LMSR, the bounded loss it's determined by the initial amount of liquidity in the market (`maxLoss = initialShares . overround`). The maximum amount of liquidity when using the LS-LMSR is unbounded, because market participants are contributing to liquidity, too.
 
 
 4. Liquidity Sensitivity:
@@ -43,7 +48,7 @@ This small shift in how to set b---from a constant to an increasing value---crea
    Observe that as the market has more activity and q increases, b increases, so market depth increases in market volume, a property that is seen in real-world markets (e.g., you can buy a million dollars of apple stock without moving the price significantly, but buying a million dollars of a low market cap stock like FDP will change its price significantly).
 
 
-5. Prices Sum to (at Least ) 1:
+5. Prices Sum to (at Least) 1:
 
    In the LMSR, marginal prices are positive and sum to exactly 1. This means that those prices are directly interpretable as probabilities. 
 

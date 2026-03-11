@@ -14,6 +14,7 @@ export type ScaffoldConfig = {
 const scaffoldConfig = {
     // The networks on which your DApp is live
     targetNetworks: [chains.base, chains.baseSepolia],
+    // targetNetworks: [chains.baseSepolia],
     // targetNetworks: [chains.hardhat],
 
     // The interval at which your front-end polls the RPC servers for new data

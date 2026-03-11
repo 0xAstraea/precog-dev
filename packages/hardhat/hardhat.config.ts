@@ -36,7 +36,7 @@ const config: HardhatUserConfig = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 1000,
+            runs: 5000,
           },
         },
       },
@@ -45,7 +45,7 @@ const config: HardhatUserConfig = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 1000,
+            runs: 5000,
           },
         },
       },
@@ -63,9 +63,12 @@ const config: HardhatUserConfig = {
     hardhat: {
       // allowUnlimitedContractSize: true,
       forking: {
-        // url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,  // ETH Mainnet
+        // url: `https://eth-mainnet.g.alchemy.com/v2/${providerApiKey}`,  // ETH Mainnet
+        // blockNumber: 24_000_000,  // ETH Mainnet fork
         url: `https://base-mainnet.g.alchemy.com/v2/${providerApiKey}`,  // Base Mainnet
+        blockNumber: 42_000_000,  // Base Mainnet fork block
         // url: `https://base-sepolia.g.alchemy.com/v2/${providerApiKey}`,  // Base Sepolia
+        // blockNumber: 38_000_000,  // Base Sepoli fork block
         // url: `https://worldchain-mainnet.g.alchemy.com/v2/${providerApiKey}`,  // World Mainnet
         // url: `https://worldchain-sepolia.g.alchemy.com/v2/${providerApiKey}`,  // World Sepolia
         enabled: process.env.MAINNET_FORKING_ENABLED === "true",
@@ -186,7 +189,7 @@ const config: HardhatUserConfig = {
   gasReporter: {
     enabled: process.env.REPORT_GAS === "true",
     currency: 'USD',
-    gasPrice: 0.01,
+    gasPrice: 0.1,  // [gwei]
     tokenPrice: "3000.00"
   },
   mocha: {
